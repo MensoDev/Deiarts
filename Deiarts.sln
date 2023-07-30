@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0D1A36
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Common.Domain", "src\Common\Domain\Daiarts.Common.Domain.csproj", "{4F1AC761-A317-40BE-9D34-F2C2B838AE57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Sales.Domain", "src\Sales\Domain\Daiarts.Sales.Domain.csproj", "{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,7 @@ Global
 		{06A40B9B-AC74-4E5D-ACEF-259C97731A7A} = {0E26021A-B3D6-4E29-9C6F-45257B206136}
 		{0D1A36B6-A24D-4CDA-90D3-DAC05F98E7C3} = {AFFBA052-75A0-41F4-B6C7-83ECFABAA9EB}
 		{4F1AC761-A317-40BE-9D34-F2C2B838AE57} = {0D1A36B6-A24D-4CDA-90D3-DAC05F98E7C3}
+		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77} = {0C1003D0-1146-4D7E-84AF-C81C544F4E68}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A40B9B-AC74-4E5D-ACEF-259C97731A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -56,5 +59,9 @@ Global
 		{4F1AC761-A317-40BE-9D34-F2C2B838AE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F1AC761-A317-40BE-9D34-F2C2B838AE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F1AC761-A317-40BE-9D34-F2C2B838AE57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
