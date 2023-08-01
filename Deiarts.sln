@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Sales.Domain", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Pricing.Domain", "src\Pricing\Domain\Daiarts.Pricing.Domain.csproj", "{FF5F566C-C042-42CE-8060-514932B923D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Inventory.Application", "src\Inventory\Application\Daiarts.Inventory.Application.csproj", "{76626684-4B46-499B-927D-888EFBEE011F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Inventory.Infrastructure", "src\Inventory\Infrastructure\Daiarts.Inventory.Infrastructure.csproj", "{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +56,8 @@ Global
 		{4F1AC761-A317-40BE-9D34-F2C2B838AE57} = {0D1A36B6-A24D-4CDA-90D3-DAC05F98E7C3}
 		{7F16D6D8-2BDF-4FED-B45D-AC3BB0CEAF77} = {0C1003D0-1146-4D7E-84AF-C81C544F4E68}
 		{FF5F566C-C042-42CE-8060-514932B923D1} = {01266938-1E3E-4A80-AE5B-D9B48AEB2B14}
+		{76626684-4B46-499B-927D-888EFBEE011F} = {0E26021A-B3D6-4E29-9C6F-45257B206136}
+		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1} = {0E26021A-B3D6-4E29-9C6F-45257B206136}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A40B9B-AC74-4E5D-ACEF-259C97731A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -70,5 +76,13 @@ Global
 		{FF5F566C-C042-42CE-8060-514932B923D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF5F566C-C042-42CE-8060-514932B923D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF5F566C-C042-42CE-8060-514932B923D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76626684-4B46-499B-927D-888EFBEE011F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76626684-4B46-499B-927D-888EFBEE011F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76626684-4B46-499B-927D-888EFBEE011F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76626684-4B46-499B-927D-888EFBEE011F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
