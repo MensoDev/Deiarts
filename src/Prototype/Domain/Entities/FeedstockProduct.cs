@@ -2,7 +2,7 @@
 
 namespace Daiarts.Prototype.Domain.Entities;
 
-public sealed class FeedstockProduct
+public sealed class FeedstockProduct : Entity
 {
     public FeedstockProduct(Guid feedstockId, Guid productId, UnitOfMeasurement unitOfMeasurement, decimal quantity)
     {
@@ -10,6 +10,14 @@ public sealed class FeedstockProduct
         ProductId = productId;
         UnitOfMeasurement = unitOfMeasurement;
         Quantity = quantity;
+        
+        AddNotifications(DomainNotifications
+            .Rules
+            .Requires()
+            .IsNotEmpty(FeedstockId, nameof(FeedstockId), "Feedstock is required")
+            .IsNotEmpty(ProductId, nameof(ProductId), "Product is required")
+            .IsGreaterThan(Quantity, 0, nameof(Quantity), "Quantity must be greater than 0")
+        );
     }
 
     public Guid FeedstockId { get; private set; }

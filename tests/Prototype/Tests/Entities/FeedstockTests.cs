@@ -1,7 +1,4 @@
-﻿using Daiarts.Prototype.Domain.Entities;
-using Daiarts.Prototype.Domain.Enums;
-
-namespace Daiarts.Prototype.Tests.Entities;
+﻿namespace Daiarts.Prototype.Tests.Entities;
 
 public class FeedstockTests
 {
