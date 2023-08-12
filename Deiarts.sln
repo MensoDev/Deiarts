@@ -35,6 +35,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Inventory.Applicati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Inventory.Infrastructure", "src\Inventory\Infrastructure\Daiarts.Inventory.Infrastructure.csproj", "{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prototype ", "Prototype ", "{86468A3A-6B78-4098-A2B5-30C7DDB7916C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Application", "src\Prototype\Application\Daiarts.Prototype.Application.csproj", "{D8AF432F-8EC6-4973-B4A0-7D2079261718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Domain", "src\Prototype\Domain\Daiarts.Prototype.Domain.csproj", "{651AC555-763C-41DD-A6B5-E80F5E862D70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Infrastructure", "src\Prototype\Infrastructure\Daiarts.Prototype.Infrastructure.csproj", "{FFD225D8-D776-4214-B734-647C4AA2D21C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Tests", "tests\Prototype\Tests\Daiarts.Prototype.Tests.csproj", "{3D8543C3-E7A8-4750-B473-9E624803FDC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +68,10 @@ Global
 		{FF5F566C-C042-42CE-8060-514932B923D1} = {01266938-1E3E-4A80-AE5B-D9B48AEB2B14}
 		{76626684-4B46-499B-927D-888EFBEE011F} = {0E26021A-B3D6-4E29-9C6F-45257B206136}
 		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1} = {0E26021A-B3D6-4E29-9C6F-45257B206136}
+		{D8AF432F-8EC6-4973-B4A0-7D2079261718} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
+		{651AC555-763C-41DD-A6B5-E80F5E862D70} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
+		{FFD225D8-D776-4214-B734-647C4AA2D21C} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
+		{3D8543C3-E7A8-4750-B473-9E624803FDC2} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A40B9B-AC74-4E5D-ACEF-259C97731A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -84,5 +98,21 @@ Global
 		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38C670D-8F70-4FF6-963A-AC4B0D0041C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8AF432F-8EC6-4973-B4A0-7D2079261718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8AF432F-8EC6-4973-B4A0-7D2079261718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8AF432F-8EC6-4973-B4A0-7D2079261718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8AF432F-8EC6-4973-B4A0-7D2079261718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{651AC555-763C-41DD-A6B5-E80F5E862D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{651AC555-763C-41DD-A6B5-E80F5E862D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{651AC555-763C-41DD-A6B5-E80F5E862D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{651AC555-763C-41DD-A6B5-E80F5E862D70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD225D8-D776-4214-B734-647C4AA2D21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD225D8-D776-4214-B734-647C4AA2D21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD225D8-D776-4214-B734-647C4AA2D21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD225D8-D776-4214-B734-647C4AA2D21C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
