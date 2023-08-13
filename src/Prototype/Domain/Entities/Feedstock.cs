@@ -1,10 +1,9 @@
-﻿using Deiarts.Prototype.Domain.Enums;
-using Deiarts.Prototype.Domain.ValueObjects;
-
-namespace Deiarts.Prototype.Domain.Entities;
+﻿namespace Deiarts.Prototype.Domain.Entities;
 
 public sealed class Feedstock : Entity
 {
+    private readonly IList<Batch> _batches = new List<Batch>();
+    
     public Feedstock(string name, string description, UnitOfMeasurement unitOfMeasurement, decimal quantity, Image image)
     {
         Name = name;
@@ -28,6 +27,6 @@ public sealed class Feedstock : Entity
     public string Description { get; private set; }
     public UnitOfMeasurement UnitOfMeasurement { get; private set; }
     public decimal Quantity { get; private set; }
-
     public Image Image { get; private set; }
+    public IEnumerable<Batch> Batches => _batches.AsReadOnly();
 }
