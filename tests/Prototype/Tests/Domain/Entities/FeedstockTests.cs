@@ -1,4 +1,4 @@
-﻿namespace Deiarts.Prototype.Tests.Entities;
+﻿namespace Deiarts.Prototype.Tests.Domain.Entities;
 
 public class FeedstockTests
 {
@@ -70,7 +70,7 @@ public class FeedstockTests
     }
     
     [Fact]
-    public void ShouldReturnSuccessWhenImageIsValid()
+    public void ShouldCreateEntityWithSuccess()
     {
         // Arrange
         var image = new Image("Image Name", "image/png", new byte[] { 1, 2, 3 });
