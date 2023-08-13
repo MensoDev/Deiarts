@@ -14,5 +14,6 @@ public class DeiartsDbContext : DbContext
     {
         modelBuilder.Ignore<Notification>();
         modelBuilder.ApplyConfiguration(new FeedstockConfiguration());
+        modelBuilder.ApplyConfiguration(new BatchConfiguration());
     }
 }

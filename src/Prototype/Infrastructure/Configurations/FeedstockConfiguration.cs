@@ -22,6 +22,7 @@ internal sealed class FeedstockConfiguration : IEntityTypeConfiguration<Feedstoc
 
         builder
             .Property(feedstock => feedstock.Quantity)
+            .IsRequired()
             .HasPrecision(18, 6);
 
         builder
