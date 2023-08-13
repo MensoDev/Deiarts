@@ -16,6 +16,7 @@ public sealed class Budget : Entity
             .Requires()
             .IsNotNullOrEmpty(Title, nameof(Title), "Title is required")
             .IsNotNullOrEmpty(Description, nameof(Description), "Description is required")
+            .IsGreaterThan(Validity.DateTime, DateTimeOffset.UtcNow.DateTime, nameof(Validity), "Validity must be greater than now")
         );
     }
 
@@ -24,11 +25,13 @@ public sealed class Budget : Entity
     public DateTimeOffset Validity { get; private set; }
     public BudgetStatus Status { get; private set; }
 
-    public IReadOnlyCollection<BudgetItem> Items => _items.AsReadOnly();
+    public IEnumerable<BudgetItem> Items => _items.AsReadOnly();
     
-    public void AddItem(Guid productId, decimal quantity)
+    public void AddItem(BudgetItem item)
     {
-        _items.Add(new BudgetItem(Id, productId, quantity));
+        Throw<DomainException>.When.True(Id != item.BudgetId, "Item must belong to this budget");
+        AddNotifications(item);
+        _items.Add(item);
     }
     
 }

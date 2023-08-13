@@ -1,4 +1,4 @@
-﻿namespace Deiarts.Prototype.Tests.ValueObjects;
+﻿namespace Deiarts.Prototype.Tests.Domain.ValueObjects;
 
 public class StockKeepingUnitTests
 {
