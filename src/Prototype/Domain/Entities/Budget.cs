@@ -4,7 +4,7 @@ public sealed class Budget : Entity
 {
     private readonly List<BudgetItem> _items = new();
 
-    public Budget(string title, string description, DateTime validity)
+    public Budget(string title, string description, DateTimeOffset validity)
     {
         Title = title;
         Description = description;
@@ -21,7 +21,7 @@ public sealed class Budget : Entity
 
     public string Title { get; private set; }
     public string Description { get; private set; }
-    public DateTime Validity { get; private set; }
+    public DateTimeOffset Validity { get; private set; }
     public BudgetStatus Status { get; private set; }
 
     public IReadOnlyCollection<BudgetItem> Items => _items.AsReadOnly();
