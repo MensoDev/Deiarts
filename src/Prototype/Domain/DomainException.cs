@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Daiarts.Prototype.Domain;
+namespace Deiarts.Prototype.Domain;
 
 [Serializable]
 public class DomainException : Exception

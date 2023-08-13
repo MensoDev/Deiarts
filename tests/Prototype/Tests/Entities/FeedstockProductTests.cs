@@ -1,4 +1,4 @@
-﻿namespace Daiarts.Prototype.Tests.Entities;
+﻿namespace Deiarts.Prototype.Tests.Entities;
 
 public class FeedstockProductTests
 {
