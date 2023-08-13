@@ -2,7 +2,7 @@
 
 namespace Deiarts.Prototype.Domain.Entities;
 
-public class Batch : Entity
+public sealed class Batch : Entity
 {
     public Batch(Guid feedStockId, decimal quantity, decimal consumedQuantity, UnitOfMeasurement unitOfMeasurement, BatchStatus status, decimal pricePerUnit)
     {
@@ -12,6 +12,14 @@ public class Batch : Entity
         UnitOfMeasurement = unitOfMeasurement;
         Status = status;
         PricePerUnit = pricePerUnit;
+
+        AddNotifications(DomainNotifications
+            .Rules
+            .IsGreaterThan(Quantity, 0, nameof(Quantity), "The quantity must be greater than zero")
+            .IsGreaterThan(ConsumedQuantity, 0, nameof(ConsumedQuantity), "The consumed quantity must be greater than zero")
+            .IsGreaterThan(PricePerUnit, 0, nameof(PricePerUnit), "The price per unit must be greater than zero")
+            .IsNotEmpty(FeedStockId, nameof(FeedStockId), "The feed stock id must be informed")
+        );
     }
 
     public decimal Quantity { get; private set; }
