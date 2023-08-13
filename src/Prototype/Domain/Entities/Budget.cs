@@ -1,8 +1,6 @@
-﻿using Deiarts.Prototype.Domain.Enums;
+﻿namespace Deiarts.Prototype.Domain.Entities;
 
-namespace Deiarts.Prototype.Domain.Entities;
-
-public class Budget : Entity
+public sealed class Budget : Entity
 {
     private readonly List<BudgetItem> _items = new();
 
@@ -12,6 +10,13 @@ public class Budget : Entity
         Description = description;
         Validity = validity;
         Status = BudgetStatus.Draft;
+        
+        AddNotifications(DomainNotifications
+            .Rules
+            .Requires()
+            .IsNotNullOrEmpty(Title, nameof(Title), "Title is required")
+            .IsNotNullOrEmpty(Description, nameof(Description), "Description is required")
+        );
     }
 
     public string Title { get; private set; }
