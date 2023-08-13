@@ -1,4 +1,4 @@
-﻿namespace Daiarts.Prototype.Domain.ValueObjects;
+﻿namespace Deiarts.Prototype.Domain.ValueObjects;
 
 public class Image : ValueObject
 {

@@ -1,4 +1,4 @@
-﻿namespace Daiarts.Prototype.Domain.Enums;
+﻿namespace Deiarts.Prototype.Domain.Enums;
 
 public enum BudgetStatus
 {

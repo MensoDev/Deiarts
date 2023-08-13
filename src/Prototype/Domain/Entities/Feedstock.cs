@@ -1,7 +1,7 @@
-﻿using Daiarts.Prototype.Domain.Enums;
-using Daiarts.Prototype.Domain.ValueObjects;
+﻿using Deiarts.Prototype.Domain.Enums;
+using Deiarts.Prototype.Domain.ValueObjects;
 
-namespace Daiarts.Prototype.Domain.Entities;
+namespace Deiarts.Prototype.Domain.Entities;
 
 public sealed class Feedstock : Entity
 {

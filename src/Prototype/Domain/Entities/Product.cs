@@ -1,6 +1,6 @@
-﻿using Daiarts.Prototype.Domain.ValueObjects;
+﻿using Deiarts.Prototype.Domain.ValueObjects;
 
-namespace Daiarts.Prototype.Domain.Entities;
+namespace Deiarts.Prototype.Domain.Entities;
 
 public sealed class Product : Entity
 {

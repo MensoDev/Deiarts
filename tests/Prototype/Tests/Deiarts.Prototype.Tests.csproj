@@ -25,7 +25,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Prototype\Infrastructure\Daiarts.Prototype.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\Prototype\Infrastructure\Deiarts.Prototype.Infrastructure.csproj" />
   </ItemGroup>
 
 

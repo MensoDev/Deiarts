@@ -1,7 +1,7 @@
 global using Xunit;
 
-global using Daiarts.Prototype.Domain.Entities;
-global using Daiarts.Prototype.Domain.Enums;
-global using Daiarts.Prototype.Domain.ValueObjects;
+global using Deiarts.Prototype.Domain.Entities;
+global using Deiarts.Prototype.Domain.Enums;
+global using Deiarts.Prototype.Domain.ValueObjects;
 
 global using FluentAssertions;

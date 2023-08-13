@@ -1,6 +1,6 @@
-﻿using Daiarts.Prototype.Domain.Enums;
+﻿using Deiarts.Prototype.Domain.Enums;
 
-namespace Daiarts.Prototype.Domain.Entities;
+namespace Deiarts.Prototype.Domain.Entities;
 
 public class Batch : Entity
 {

@@ -1,6 +1,6 @@
 ﻿using Flunt.Validations;
 
-namespace Daiarts.Prototype.Domain;
+namespace Deiarts.Prototype.Domain;
 
 public static class DomainNotifications
 {

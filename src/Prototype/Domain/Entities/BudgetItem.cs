@@ -1,4 +1,4 @@
-﻿namespace Daiarts.Prototype.Domain.Entities;
+﻿namespace Deiarts.Prototype.Domain.Entities;
 
 public class BudgetItem : Entity
 {

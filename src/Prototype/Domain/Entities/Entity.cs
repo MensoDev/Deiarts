@@ -1,4 +1,4 @@
-﻿namespace Daiarts.Prototype.Domain.Entities;
+﻿namespace Deiarts.Prototype.Domain.Entities;
 
 public abstract class Entity : Notifiable<Notification>
 {

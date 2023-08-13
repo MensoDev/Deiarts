@@ -37,13 +37,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Inventory.Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prototype ", "Prototype ", "{86468A3A-6B78-4098-A2B5-30C7DDB7916C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Application", "src\Prototype\Application\Daiarts.Prototype.Application.csproj", "{D8AF432F-8EC6-4973-B4A0-7D2079261718}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Application", "src\Prototype\Application\Deiarts.Prototype.Application.csproj", "{D8AF432F-8EC6-4973-B4A0-7D2079261718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Domain", "src\Prototype\Domain\Daiarts.Prototype.Domain.csproj", "{651AC555-763C-41DD-A6B5-E80F5E862D70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Domain", "src\Prototype\Domain\Deiarts.Prototype.Domain.csproj", "{651AC555-763C-41DD-A6B5-E80F5E862D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Infrastructure", "src\Prototype\Infrastructure\Daiarts.Prototype.Infrastructure.csproj", "{FFD225D8-D776-4214-B734-647C4AA2D21C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Infrastructure", "src\Prototype\Infrastructure\Deiarts.Prototype.Infrastructure.csproj", "{FFD225D8-D776-4214-B734-647C4AA2D21C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daiarts.Prototype.Tests", "tests\Prototype\Tests\Daiarts.Prototype.Tests.csproj", "{3D8543C3-E7A8-4750-B473-9E624803FDC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Tests", "tests\Prototype\Tests\Deiarts.Prototype.Tests.csproj", "{3D8543C3-E7A8-4750-B473-9E624803FDC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
