@@ -7,8 +7,6 @@ internal sealed class BatchConfiguration : IEntityTypeConfiguration<Batch>
 {
     public void Configure(EntityTypeBuilder<Batch> builder)
     {
-        builder.ToTable("Batches", "dbo");
-        
         builder.HasKey(batch => batch.Id);
         
         builder
