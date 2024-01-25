@@ -45,6 +45,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Prototype.Tests", "tests\Prototype\Tests\Deiarts.Prototype.Tests.csproj", "{3D8543C3-E7A8-4750-B473-9E624803FDC2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{C3228204-75C9-4667-BB89-582680A1D6FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terminals", "Terminals", "{0808DE74-40E2-4DB1-948B-41249E1D3B9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Tools.Terminals.MathBudget", "src\Tools\Terminals\Math\Deiarts.Tools.Terminals.MathBudget.csproj", "{36888582-51C0-4500-98B7-6836C57B8D81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +78,8 @@ Global
 		{651AC555-763C-41DD-A6B5-E80F5E862D70} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
 		{FFD225D8-D776-4214-B734-647C4AA2D21C} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
 		{3D8543C3-E7A8-4750-B473-9E624803FDC2} = {86468A3A-6B78-4098-A2B5-30C7DDB7916C}
+		{0808DE74-40E2-4DB1-948B-41249E1D3B9B} = {C3228204-75C9-4667-BB89-582680A1D6FC}
+		{36888582-51C0-4500-98B7-6836C57B8D81} = {0808DE74-40E2-4DB1-948B-41249E1D3B9B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A40B9B-AC74-4E5D-ACEF-259C97731A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,5 +122,9 @@ Global
 		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D8543C3-E7A8-4750-B473-9E624803FDC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36888582-51C0-4500-98B7-6836C57B8D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36888582-51C0-4500-98B7-6836C57B8D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36888582-51C0-4500-98B7-6836C57B8D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36888582-51C0-4500-98B7-6836C57B8D81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
