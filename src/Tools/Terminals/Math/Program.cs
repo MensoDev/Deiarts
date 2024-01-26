@@ -21,35 +21,4 @@ app.AddSubCommand("materiais", (commandsBuilder) =>
 
 });
 
-
-// app.AddSubCommand("budget", (options) =>
-// {
-//
-//     options.AddCommand("new", () =>
-//     {
-//         Console.WriteLine("New budget in progress...");
-//     });
-//     
-//     options.AddCommand("edit", () =>
-//     {
-//         Console.WriteLine("Edit budget in progress...");
-//     });
-//     
-//     options.AddCommand("delete", () =>
-//     {
-//         Console.WriteLine("Delete budget in progress...");
-//     });
-//     
-//     options.AddCommand("list", () =>
-//     {
-//         Console.WriteLine("List budget in progress...");
-//     });
-//     
-//     options.AddCommand("show", ([Argument(name: "Id or Code", Description = "identificador do orçamento")] string idOrCode) =>
-//     {
-//         Console.WriteLine("Show budget in progress...");
-//     });
-//
-// });
-
 await app.RunAsync();
