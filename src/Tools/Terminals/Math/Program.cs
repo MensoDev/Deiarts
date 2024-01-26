@@ -1,4 +1,4 @@
-﻿using Cocona;
+﻿using Deiarts.Tools.Terminals.MathBudget.Commands.Budgets;
 using Deiarts.Tools.Terminals.MathBudget.Commands.Materials;
 using Deiarts.Tools.Terminals.MathBudget.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +14,8 @@ builder.Services.AddDbContext<MathBudgetDbContext>(options => { options.UseSqlit
 var app = builder.Build();
 
 
-app.AddSubCommand("materiais", (commandsBuilder) =>
-{
+app.AddSubCommand("materiais", commandsBuilder => { commandsBuilder.AddCommands<MaterialCommands>(); });
+app.AddSubCommand("orcamentos", commandsBuilder => { commandsBuilder.AddCommands<BudgetCommands>(); });
 
-    commandsBuilder.AddCommands<MaterialCommands>();
-
-});
 
 await app.RunAsync();

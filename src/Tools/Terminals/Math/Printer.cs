@@ -3,10 +3,10 @@ using Sharprompt;
 
 namespace Deiarts.Tools.Terminals.MathBudget;
 
-public static class PrintHelpers
+public static class Printer
 {
     private const char BorderToken = '*';
-    public static readonly CultureInfo Culture = CultureInfo.GetCultureInfo("pt-BR");
+    private static readonly CultureInfo Culture = CultureInfo.GetCultureInfo("pt-BR");
     
     public static void PrintHeader(string title)
     {
@@ -26,45 +26,6 @@ public static class PrintHelpers
         var footer = new string(BorderToken, width);
         Console.WriteLine(footer);
         Console.WriteLine(Environment.NewLine);
-    }
-    
-    public static void PrintError(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(message);
-        Console.ResetColor();
-    }
-    
-    public static void PrintSuccess(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        
-        var width = Console.WindowWidth;
-        var alert = new string(BorderToken, width);
-        var alertMessage = new string(' ', (width - message.Length) / 2) + message;
-        NewLine();
-        Console.WriteLine(alert);
-        Console.WriteLine(alertMessage);
-        Console.WriteLine(alert);
-        NewLine();
-        
-        Console.ResetColor();
-    }
-    
-    public static void PrintInfo(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        
-        var width = Console.WindowWidth;
-        var alert = new string(BorderToken, width);
-        var alertMessage = new string(' ', (width - message.Length) / 2) + message;
-        NewLine();
-        Console.WriteLine(alert);
-        Console.WriteLine(alertMessage);
-        Console.WriteLine(alert);
-        NewLine();
-        
-        Console.ResetColor();
     }
 
     public static void WriteCurrency(decimal money, ConsoleColor color)

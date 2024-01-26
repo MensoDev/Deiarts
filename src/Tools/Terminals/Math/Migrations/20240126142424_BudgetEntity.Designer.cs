@@ -3,6 +3,7 @@ using System;
 using Deiarts.Tools.Terminals.MathBudget.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deiarts.Tools.Terminals.MathBudget.Migrations
 {
     [DbContext(typeof(MathBudgetDbContext))]
-    partial class MathBudgetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240126142424_BudgetEntity")]
+    partial class BudgetEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");

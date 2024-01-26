@@ -14,7 +14,7 @@ public class MaterialCommands
         context.Materials.Add(material);
         await context.SaveChangesAsync();
         
-        PrintHelpers.PrintSuccess($"Material '{material.Name}' criado com sucesso!");
+        Alert.WriteSuccess($"Material '{material.Name}' criado com sucesso!");
     }
     
     [Command("listar", Description = "Listar todos os matérias")]
@@ -26,15 +26,15 @@ public class MaterialCommands
             .Where(m => m.Name.Contains(termo!) || m.Description.Contains(termo!))
             .ToArrayAsync();
         
-        PrintHelpers.Clear();
-        PrintHelpers.PrintHeader("Materiais");
+        Printer.Clear();
+        Printer.PrintHeader("Materiais");
 
         foreach (var material in materials)
         {
             PrintMaterial(material);
         }
         
-        PrintHelpers.PrintFooter();
+        Printer.PrintFooter();
     }
     
     [Command("editar", Description = "Editar um material")]
@@ -44,11 +44,11 @@ public class MaterialCommands
         
         if (material is null)
         {
-            PrintHelpers.PrintError($"Material com ID '{id}' não encontrado!");
+            Alert.WriteError($"Material com ID '{id}' não encontrado!");
             return;
         }
         
-        PrintHelpers.PrintHeader($"Editando o Material {material.Id}");
+        Printer.PrintHeader($"Editando o Material {material.Id}");
 
         if (!string.IsNullOrWhiteSpace(parameters.Name)) { material.ChangeName(parameters.Name); }
         if (!string.IsNullOrWhiteSpace(parameters.Description)) { material.ChangeDescription(parameters.Description); }
@@ -56,30 +56,29 @@ public class MaterialCommands
         
         PrintMaterial(material);
         
-        PrintHelpers.WriteDashedLine();
-        PrintHelpers.NewLine();
+        Printer.WriteDashedLine();
+        Printer.NewLine();
         
-        var confirm = PrintHelpers.Confirm("Deseja confirmar a alteração? (S/N)");
+        var confirm = Printer.Confirm("Deseja confirmar a alteração? (S/N)");
         
         if (!confirm)
         {
-            PrintHelpers.PrintInfo("Operação cancelada!");
+            Alert.WriteInfo("Operação cancelada!");
             return;
         }
         
         await context.SaveChangesAsync();
         
-        PrintHelpers.PrintSuccess($"Material '{material.Name}' editado com sucesso!");
+        Alert.WriteSuccess($"Material '{material.Name}' editado com sucesso!");
     }
-
-
+    
     private static void PrintMaterial(Material material)
     {
-        PrintHelpers.PrintInfo("Material ID", material.Id.ToString(), ConsoleColor.Yellow);
-        PrintHelpers.PrintInfo("Nome", material.Name);
-        PrintHelpers.PrintCurrencyInfo("Preço por unidade", material.PricePerUnit, ConsoleColor.Yellow);
-        PrintHelpers.PrintInfo("Descrição", material.Description);
-        PrintHelpers.WriteDashedLine();
-        PrintHelpers.NewLine();
+        Printer.PrintInfo("Material ID", material.Id.ToString(), ConsoleColor.Yellow);
+        Printer.PrintInfo("Nome", material.Name);
+        Printer.PrintCurrencyInfo("Preço por unidade", material.PricePerUnit, ConsoleColor.Yellow);
+        Printer.PrintInfo("Descrição", material.Description);
+        Printer.WriteDashedLine();
+        Printer.NewLine();
     }
 }
