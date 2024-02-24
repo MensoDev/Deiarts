@@ -1,0 +1,52 @@
+﻿@page "/materials/new"
+@page "/materials/{id:guid}"
+@using Deiarts.Prototype.Presentation.Web.Client.Services.Materials
+@using Deiarts.Prototype.Application.Shared.Materials
+
+@inject IMaterialService MaterialService
+@inject NavigationManager NavigationManager
+
+<Page Title="Material" Icon="@Icons.Material.Filled.PointOfSale" BreadcrumbItems="_breadcrumbItems">
+    <CommandBar></CommandBar>
+    <Content>
+        <EditForm Model="_request" OnValidSubmit="HandleValidSubmit">
+            <FluentValidator Validator="new EditorMaterialValidator()" />
+            <MudGrid>
+                <MudItem>
+                    <MudTextField Label="Nome"/>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </Content>
+</Page>
+
+@code {
+    private readonly EditorMaterialRequest _request = new ();
+    private readonly List<BreadcrumbItem> _breadcrumbItems =
+    [
+        new BreadcrumbItem("Home", href: "/", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Matérias", href: "/materiais", icon: Icons.Material.Filled.ShapeLine),
+        new BreadcrumbItem("Novo", href: null, disabled: true, icon: Icons.Material.Filled.Add)
+    ];
+
+    [Parameter]
+    public Guid? Id { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        if(Id is null) { return; }
+        var material = await MaterialService.GetAsync(Id.Value);
+        _request.Id = material.Id;
+        _request.Name = material.Name;
+        _request.Description = material.Description;
+        _request.PricePerUnit = material.PricePerUnit;
+
+    }
+    
+    private async Task HandleValidSubmit()
+    {
+        await MaterialService.EditorAsync(_request);
+        NavigationManager.NavigateTo("/materiais");
+    }
+
+}

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="QuestPDF" Version="2023.12.4" />
         <PackageReference Include="Sharprompt" Version="2.4.5"/>
         <PackageReference Include="TextCopy" Version="6.2.1"/>
     </ItemGroup>

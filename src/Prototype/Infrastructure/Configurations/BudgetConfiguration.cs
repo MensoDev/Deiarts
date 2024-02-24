@@ -1,30 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Deiarts.Prototype.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Deiarts.Prototype.Infrastructure.Configurations;
 
-internal sealed class BudgetConfiguration : IEntityTypeConfiguration<Budget>
+public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
 {
     public void Configure(EntityTypeBuilder<Budget> builder)
     {
-        builder.HasKey(budget => budget.Id);
+        builder.ToTable("Budgets");
+        builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
         
-        builder
-            .Property(budget => budget.Title)
-            .HasMaxLength(50)
-            .IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(150).IsRequired();
+        builder.Property(x => x.Description).HasMaxLength(250).IsRequired();
 
         builder
-            .Property(budget => budget.Description)
-            .HasMaxLength(200)
-            .IsRequired();
-        
-        builder
-            .Property(budget => budget.Status)
-            .IsRequired();
-        
-        builder
-            .Property(budget => budget.Validity)
-            .IsRequired();
+            .HasMany(x => x.Products)
+            .WithMany(product => product.Budgets)
+            .UsingEntity<BudgetProduct>(options =>
+            {
+                options.Property(rel => rel.Amount).IsRequired();
+            });
     }
 }

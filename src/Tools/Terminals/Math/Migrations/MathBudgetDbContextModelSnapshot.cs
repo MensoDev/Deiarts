@@ -23,11 +23,6 @@ namespace Deiarts.Tools.Terminals.MathBudget.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Client")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("Code")
                         .HasColumnType("TEXT");
 
@@ -104,7 +99,7 @@ namespace Deiarts.Tools.Terminals.MathBudget.Migrations
             modelBuilder.Entity("Deiarts.Tools.Terminals.MathBudget.Entities.BudgetMaterial", b =>
                 {
                     b.HasOne("Deiarts.Tools.Terminals.MathBudget.Entities.Budget", "Budget")
-                        .WithMany("MaterialsRel")
+                        .WithMany("BudgetMaterials")
                         .HasForeignKey("BudgetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -122,7 +117,7 @@ namespace Deiarts.Tools.Terminals.MathBudget.Migrations
 
             modelBuilder.Entity("Deiarts.Tools.Terminals.MathBudget.Entities.Budget", b =>
                 {
-                    b.Navigation("MaterialsRel");
+                    b.Navigation("BudgetMaterials");
                 });
 
             modelBuilder.Entity("Deiarts.Tools.Terminals.MathBudget.Entities.Material", b =>

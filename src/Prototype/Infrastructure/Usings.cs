@@ -1,1 +1,1 @@
-﻿global using Deiarts.Prototype.Domain.Entities;
+﻿

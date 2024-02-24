@@ -12,7 +12,6 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
         
-        builder.Property(x => x.Client).HasMaxLength(150).IsRequired();
         builder.Property(x => x.Product).HasMaxLength(150).IsRequired();
         builder.Property(x => x.TimeServiceInMinutes).IsRequired();
 

@@ -10,7 +10,7 @@ public class BudgetCommands
     [Command("novo", Description = "Cria um orçamento/produto")]
     public async Task Create(CreateBudgetParameters parameters, [FromService] MathBudgetDbContext context)
     {
-        var budget = new Budget(parameters.Client, parameters.Product, parameters.TimeServiceInMinutes);
+        var budget = new Budget(parameters.Product, parameters.TimeServiceInMinutes);
         context.Budgets.Add(budget);
         
         await context.SaveChangesAsync();
@@ -86,7 +86,7 @@ public class BudgetCommands
         var budgets = await context
             .Budgets
             .AsNoTracking()
-            .Where(m => m.Client.Contains(termo!) || m.Product.Contains(termo!))
+            .Where(m => m.Product.Contains(termo!))
             .ToArrayAsync();
         
         Printer.PrintHeader("Orçamentos");
@@ -100,13 +100,31 @@ public class BudgetCommands
     }
     
     [Command("detalhes", Description = "Mostra os detalhes de um orçamento/produto")]
-    public async Task Details([FromService] MathBudgetDbContext context, [Argument(name: "id", Description = "id do orçamento/produto")] int id)
+    public async Task Details(
+        [FromService] MathBudgetDbContext context, 
+        [Argument(name: "id", Description = "id do orçamento/produto")] int id, 
+        [Option("quantidade", [ 'q' ], Description = "Quantidade de items a ser simulado")] int amount = 1)
     {
         var budget = await context
             .Budgets
             .AsNoTracking()
-            .Include(x => x.Materials)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .Where(b => b.Id == id)
+            .Select(b => new BudgetDetails
+            {
+                Id = b.Id,
+                Amount = amount,
+                Product = b.Product,
+                TimeServiceInMinutes = b.TimeServiceInMinutes,
+                Materials = b.BudgetMaterials.Select(bm => new MaterialModel
+                {
+                    Id = bm.MaterialId,
+                    Description = bm.Material.Description,
+                    Name = bm.Material.Name,
+                    PricePerUnit = bm.Material.PricePerUnit,
+                    Amount = bm.Amount
+                }).ToArray()
+            })
+            .FirstOrDefaultAsync();
         
         if (budget is null)
         {
@@ -115,13 +133,14 @@ public class BudgetCommands
         }
         
         Printer.PrintHeader("Detalhes do Orçamento");
-        PrintShortBudget(budget);
+        PrintDetailedBudget(budget);
         
         Printer.WriteDashedLine("Materiais");
+        Printer.NewLine();
         
-        foreach (var material in budget.Materials)
+        foreach (var budgetBudget in budget.Materials)
         {
-            PrintMaterial(material);
+            PrintMaterial(budgetBudget);
         }
         
         Printer.PrintFooter();
@@ -154,19 +173,51 @@ public class BudgetCommands
     private static void PrintShortBudget(Budget budget)
     {
         Printer.PrintInfo("ID", budget.Id.ToString(), ConsoleColor.Yellow);
-        Printer.PrintInfo("Cliente", budget.Client);
         Printer.PrintInfo("Produto", budget.Product, ConsoleColor.Cyan);
         Printer.PrintInfo("Tempo de Serviço", $"{budget.TimeServiceInMinutes} minutos");
         Printer.WriteDashedLine();
         Printer.NewLine();
     }
-
-    private static void PrintMaterial(Material material)
+    
+    private static void PrintDetailedBudget(BudgetDetails details)
     {
-        Printer.PrintInfo("Material ID", material.Id.ToString(), ConsoleColor.Yellow);
-        Printer.PrintInfo("Nome", material.Name);
-        Printer.PrintCurrencyInfo("Preço por unidade", material.PricePerUnit, ConsoleColor.Yellow);
-        Printer.PrintInfo("Descrição", material.Description);
+        Printer.PrintInfo("🧾 - ID", details.Id.ToString(), ConsoleColor.Yellow);
+        Printer.PrintInfo("📦 - Produto", details.Product, ConsoleColor.Cyan);
+        Printer.PrintInfo("⏳ - Tempo de Serviço", $"{details.TimeServiceInMinutes} minutos por item");
+        Printer.PrintInfo("📦 - Quantidade", details.Amount.ToString(), ConsoleColor.Yellow);
+        
+        Printer.SkipLine();
+        
+        Printer.PrintCurrencyInfo("\u200D - Total do Serviço/Salário", details.TotalService, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo("🧾 - Total Materiais", details.TotalMaterial, ConsoleColor.Yellow);
+        
+        Printer.SkipLine();
+        
+        Printer.PrintCurrencyInfo("📦 - Custo Por Item", details.TotalItem, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo($"📦 - Custo Por {details.Amount} items", details.Total, ConsoleColor.Yellow);
+        
+        Printer.SkipLine();
+        
+        Printer.PrintCurrencyInfo("💵 - Total Mínimo", details.TotalMin, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo("💵 - Total Máximo", details.TotalMax, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo("💵 - Total Médio", details.TotalMiddle, ConsoleColor.Yellow);
+        
+        Printer.SkipLine();
+        
+        Printer.PrintCurrencyInfo("💲 - Total Mínimo por Item", details.TotalMinPerItem, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo("💲 - Total Máximo por Item", details.TotalMaxPerItem, ConsoleColor.Yellow);
+        Printer.PrintCurrencyInfo("💲 - Total Médio por Item", details.TotalMiddlePerItem, ConsoleColor.Yellow);
+        
+        Printer.NewLine();
+    }
+
+    private static void PrintMaterial(MaterialModel budgetMaterial)
+    {
+        Printer.PrintInfo("Material ID", budgetMaterial.Id.ToString(), ConsoleColor.Yellow);
+        Printer.PrintInfo("Nome", budgetMaterial.Name);
+        Printer.PrintCurrencyInfo("Preço por unidade", budgetMaterial.PricePerUnit, ConsoleColor.Yellow);
+        Printer.PrintInfo("Descrição", budgetMaterial.Description);
+        Printer.PrintInfo("Quantidade", budgetMaterial.Amount.ToString(), ConsoleColor.Yellow);
         Printer.WriteDashedLine();
         Printer.NewLine();
     }
