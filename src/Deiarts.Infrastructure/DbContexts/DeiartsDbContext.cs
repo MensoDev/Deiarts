@@ -1,10 +1,13 @@
+using Deiarts.Domain;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.Configurations;
 
 namespace Deiarts.Infrastructure.DbContexts;
 
-public class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : DbContext(options)
+public class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : DbContext(options), IUnitOfWork
 {
+    public required DbSet<RawMaterial> RawMaterials { get; init; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -18,4 +21,6 @@ public class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : DbCo
 
         configurationBuilder.Properties<RawMaterialId>().HaveConversion<RawMaterialId.EfCoreValueConverter>();
     }
+
+    public new Task SaveChangesAsync(CancellationToken cancellationToken = default) => base.SaveChangesAsync(cancellationToken);
 }

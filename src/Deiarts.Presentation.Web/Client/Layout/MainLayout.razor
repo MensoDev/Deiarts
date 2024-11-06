@@ -4,6 +4,7 @@
 <MudPopoverProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+<DeiOverlayBusyProvider/>
 
 <MudLayout>
     <MudAppBar Elevation="1">
@@ -16,8 +17,15 @@
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavigationMenu/>
     </MudDrawer>
-    <MudMainContent Class="mt-16 pa-4">
-        @Body
+    <MudMainContent>
+        <ErrorBoundary>
+            <ErrorContent>
+                @context.Message
+            </ErrorContent>
+            <ChildContent>
+                @Body
+            </ChildContent>
+        </ErrorBoundary>
     </MudMainContent>
 </MudLayout>
 

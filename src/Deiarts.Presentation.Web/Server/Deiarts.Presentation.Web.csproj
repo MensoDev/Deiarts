@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Deiarts.Common.Server\Deiarts.Common.Server.csproj" />
       <ProjectReference Include="..\..\Deiarts.Infrastructure\Deiarts.Infrastructure.csproj" />
       <ProjectReference Include="..\Client\Deiarts.Presentation.Web.Client.csproj" />
     </ItemGroup>

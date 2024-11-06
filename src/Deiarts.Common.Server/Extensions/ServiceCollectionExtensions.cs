@@ -8,7 +8,7 @@ namespace Deiarts.Common.Server.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCommonClientServices(this IServiceCollection services, bool isServer = false)
+    public static IServiceCollection AddCommonServerServices(this IServiceCollection services)
     {
         services.AddProblemDetails();
         

@@ -13,4 +13,6 @@ public static class StringExtensions
             .ToArray();
         return new string(chars);
     }
+    
+    public static bool IsNotNullOrWhiteSpace(this string? value) => !string.IsNullOrWhiteSpace(value);
 }

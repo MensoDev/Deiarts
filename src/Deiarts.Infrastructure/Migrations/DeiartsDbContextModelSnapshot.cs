@@ -40,7 +40,7 @@ namespace Deiarts.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RawMaterial");
+                    b.ToTable("RawMaterials");
                 });
 #pragma warning restore 612, 618
         }

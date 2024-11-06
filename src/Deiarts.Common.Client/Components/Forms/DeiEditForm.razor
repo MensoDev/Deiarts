@@ -1,0 +1,40 @@
+@using FluentValidation
+@using BlazorDevKit
+
+@inherits DeiComponentBase
+
+@typeparam T where T : class
+
+<EditForm
+    class="@Class"
+    style="@Style"
+    @attributes="AdditionalAttributes"
+    Model="Model"
+    OnValidSubmit="OnValidSubmit"
+    OnInvalidSubmit="OnInvalidSubmit"
+    OnSubmit="OnSubmit">
+    
+    <BdkFocusFirstFieldOnInvalidSubmit Force InvalidClass="mud-input-error > input"/>
+    <BdkFocusOnRender Selector="input" Delay="100"/>
+    
+    @if (Validator.IsNotNull())
+    {
+        <BdkFluentValidator Validator="@Validator"/>
+    }
+
+    @ChildContent
+
+</EditForm>
+
+@code 
+{
+    [Parameter, EditorRequired] public required T Model { get; set; }
+    [Parameter, EditorRequired] public required RenderFragment ChildContent { get; set; }
+    
+    [Parameter] public IValidator<T>? Validator { get; set; }
+
+    [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
+    [Parameter] public EventCallback<EditContext> OnInvalidSubmit { get; set; }
+    [Parameter] public EventCallback<EditContext> OnSubmit { get; set; }
+    
+}

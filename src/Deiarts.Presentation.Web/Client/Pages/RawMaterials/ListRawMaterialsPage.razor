@@ -1,0 +1,58 @@
+@page "/raw-materials"
+@using Deiarts.Application.RawMaterials.List
+
+@inject IEndpointService EndpointService
+
+<DeiPage Title="Matérias Prima" BackHref="/">
+    <Action>
+        <MudTooltip Text="Novo item">
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" Href="/raw-materials/new"/>
+        </MudTooltip>
+    </Action>
+    <Content>
+        <DeiLoader Load="LoadAsync" CanRetry PreserveState>
+            @if (context.IsNotEmpty())
+            {
+                <MudTable Items="context" Hover Elevation="0" Dense >
+                    <HeaderContent>
+                        <MudTh>Nome</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh Class="!tw|text-right"></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="item">
+                        <MudTd DataLabel="Nome">@item.Name</MudTd>
+                        <MudTd DataLabel="Descrição">@item.Description</MudTd>
+                        <MudTd Class="!tw|text-right">
+                            <MudTooltip Text="@($"Editar: {item.Name}")">
+                                <MudIconButton
+                                    Icon="@Icons.Material.Outlined.Edit"
+                                    Color="Color.Primary"
+                                    Href="@($"/raw-materials/edit/{item.Id}")" />
+                            </MudTooltip>
+                            <MudTooltip Text="@($"Remover: {item.Name}")">
+                                <MudIconButton
+                                    Icon="@Icons.Material.Outlined.Delete"
+                                    Color="Color.Error"
+                                    Href="@($"/raw-materials/edit/{item.Id}")" />
+                            </MudTooltip>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Info">
+                    Não há matérias primas cadastradas.
+                </MudAlert>
+            }
+        </DeiLoader>
+    </Content>
+</DeiPage>
+
+@code 
+{
+    private async Task<ListRawMaterialsResponseItem[]> LoadAsync()
+    {
+        return await EndpointService.RequestAsync(new ListRawMaterialsEndpoint());
+    }
+}

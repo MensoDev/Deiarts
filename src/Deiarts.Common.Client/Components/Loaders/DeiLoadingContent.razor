@@ -1,0 +1,13 @@
+<MudStack Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
+    
+    <MudProgressCircular Indeterminate Color="Color.Primary" />
+    
+    <MudText>@(Message.IsNotNullOrWhiteSpace() ? Message : "Carregando...")</MudText>
+    
+</MudStack>
+
+@code 
+{
+    [Parameter]
+    public string? Message { get; set; }
+}

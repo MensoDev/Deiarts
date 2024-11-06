@@ -1,0 +1,52 @@
+@page "/raw-materials/new"
+@page "/raw-materials/edit/{Id:guid}"
+
+@using Deiarts.Application.RawMaterials.Edit
+@using Deiarts.Common.Client.Services.Endpoints
+@using Deiarts.Common.Client.Services.Ui
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm OnValidSubmit="OnValidSubmitAsync" Model="_request" Validator="_validator">
+
+    <DeiPage Title="@Title" BackHref="@BackHref">
+        <Content>
+            <div class="tw|grid tw|grid-cols-1 tw|gap-4">
+                <MudTextField Label="Nome" Placeholder="nome da matéria prima" @bind-Value="@_request.Name" For="() => _request.Name" Immediate Variant="Variant.Outlined"/>
+
+                <MudTextField Label="Descrição" Placeholder="descrição da matéria prima" @bind-Value="@_request.Description" For="() => _request.Description" Immediate Variant="Variant.Outlined" Lines="4"/>
+            </div>
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Salvar</MudButton>
+        </BottomAction>
+    </DeiPage>
+
+</DeiEditForm>
+
+
+@code
+{
+    private readonly EditRawMaterialRequest _request = new();
+    private readonly EditRawMaterialValidator _validator = new();
+    private const string BackHref = "/raw-materials";
+
+    private string Title => Id.HasValue ? "Editar Matéria Prima" : "Nova Matéria Prima";
+
+    [Parameter] public Guid? Id { get; set; }
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new EditRawMaterialEndpoint();
+        await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy(Id.HasValue ? "Gravando alterações..." : "Salvando nova matéria prima...")
+            .ShowError()
+            .ShowSuccess("Matéria prima salva com sucesso!");
+
+        NavigationManager.NavigateTo(BackHref);
+    }
+}

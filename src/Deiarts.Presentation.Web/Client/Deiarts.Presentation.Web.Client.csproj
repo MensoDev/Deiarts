@@ -17,4 +17,8 @@
       <ProjectReference Include="..\..\Deiarts.Common.Client\Deiarts.Common.Client.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\" />
+    </ItemGroup>
+
 </Project>

@@ -35,6 +35,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Infrastructure", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deiarts.Tests", "src\Deiarts.Tests\Deiarts.Tests.csproj", "{75957A82-17E2-480F-B8D0-219C1EECC870}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_global", "_global", "{FE32CF8F-E235-42E5-8D22-BCA86123700C}"
+	ProjectSection(SolutionItems) = preProject
+		.libs\Microsoft.AspNetCore.Http.Abstractions.dll = .libs\Microsoft.AspNetCore.Http.Abstractions.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".libs", ".libs", "{6D4E4374-27EA-44B3-A076-BBA98F725DC0}"
+	ProjectSection(SolutionItems) = preProject
+		.libs\Microsoft.AspNetCore.Authentication.Abstractions.dll = .libs\Microsoft.AspNetCore.Authentication.Abstractions.dll
+		.libs\Microsoft.AspNetCore.Http.Features.dll = .libs\Microsoft.AspNetCore.Http.Features.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +68,7 @@ Global
 		{CD9A60D4-19B3-40E3-B234-E8DB49C2EAFA} = {8AF88803-231F-4345-B2AA-1337DDFBDCD0}
 		{05F59B19-2C22-4D4E-9C9F-74D0DDFF036F} = {8AF88803-231F-4345-B2AA-1337DDFBDCD0}
 		{75957A82-17E2-480F-B8D0-219C1EECC870} = {8AF88803-231F-4345-B2AA-1337DDFBDCD0}
+		{6D4E4374-27EA-44B3-A076-BBA98F725DC0} = {FE32CF8F-E235-42E5-8D22-BCA86123700C}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B8C930EC-AD6B-4ABA-B662-88ABB17BAE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

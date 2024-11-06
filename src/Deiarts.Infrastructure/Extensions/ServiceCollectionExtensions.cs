@@ -1,5 +1,8 @@
+using Deiarts.Application.RawMaterials;
+using Deiarts.Domain;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.DbContexts;
+using Deiarts.Infrastructure.Queries;
 using Deiarts.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +17,14 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(configuration.GetConnectionString("DeiartsConnection"));
         });
+
+        // Suporte services
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<DeiartsDbContext>());
         
+        // Repositories
         services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
+        
+        // Queries
+        services.AddScoped<IRawMaterialQueries, RawMaterialQueries>();
     }
 }

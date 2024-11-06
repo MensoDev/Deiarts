@@ -1,8 +1,11 @@
 using System.Text.Json.Serialization;
+using Deiarts.Application;
 using Deiarts.Common.Client;
 using Deiarts.Common.Client.Extensions;
+using Deiarts.Common.Server.Extensions;
 using Deiarts.Infrastructure.Extensions;
 using Deiarts.Presentation.Web.Components;
+using Deiarts.Presentation.Web.Services.Endpoints;
 using Menso.Tools.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,13 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddInteractiveServerComponents()
+    .AddInteractiveServerComponents(options => options.DetailedErrors = builder.Environment.IsDevelopment())
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     List<JsonSerializerContext> serializersContexts = [
         CommonClientSerializationContext.Default,
+        DeiartsSerializationContext.Default
     ];
     serializersContexts.ForEach(ctx => options.SerializerOptions.TypeInfoResolverChain.Insert(0, ctx));
 });
@@ -30,13 +34,15 @@ ExceptionSettings.CreateDefaultExceptionHandle = ex =>  new InvalidOperationExce
     ex.CustomMessage ?? ex.DefaultMessage, 
     ex.InnerException);
 
-builder.Services.AddCommonClientServices(isServer: true);
-
+builder.Services.AddCommonServerServices();
+builder.Services.ConfigureLoaderOptions();
 builder.Services.AddDeiartsInfrastructureServices(builder.Configuration);
 
 #endregion
 
 var app = builder.Build();
+
+app.MapEndpoints(DeiartsEndpointsRegistry.Register);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
