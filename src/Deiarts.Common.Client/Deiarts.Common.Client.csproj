@@ -13,7 +13,20 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.10"/>
-        <PackageReference Include="MudBlazor" Version="7.14.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1"/>
+        <PackageReference Include="MudBlazor" Version="7.14.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Deiarts.Common.Application\Deiarts.Common.Application.csproj"/>
+        <ProjectReference Include="..\Deiarts.Common\Deiarts.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Components\"/>
+        <Folder Include="wwwroot\"/>
     </ItemGroup>
 
 </Project>

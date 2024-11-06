@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Deiarts.Common.Application\Deiarts.Common.Application.csproj"/>
+        <ProjectReference Include="..\Deiarts.Domain\Deiarts.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>

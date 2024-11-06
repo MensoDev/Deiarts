@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Deiarts.Common\Deiarts.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Cblx.Blocks.SourceGenerators.EmptyConstructor" Version="0.8.1" />
+    </ItemGroup>
+
 </Project>

@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Deiarts.Application\Deiarts.Application.csproj" />
       <ProjectReference Include="..\..\Deiarts.Common.Client\Deiarts.Common.Client.csproj" />
     </ItemGroup>
 

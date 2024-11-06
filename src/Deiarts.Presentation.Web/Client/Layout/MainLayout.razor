@@ -32,7 +32,7 @@
     private bool _drawerOpen = true;
     private bool _isDarkMode = true;
     
-    public string DarkLightModeButtonIcon => _isDarkMode switch
+    private string DarkLightModeButtonIcon => _isDarkMode switch
     {
         true => Icons.Material.Rounded.AutoMode,
         false => Icons.Material.Outlined.DarkMode,

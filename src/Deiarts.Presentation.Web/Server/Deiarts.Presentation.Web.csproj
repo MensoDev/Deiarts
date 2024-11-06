@@ -8,9 +8,14 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Deiarts.Infrastructure\Deiarts.Infrastructure.csproj" />
       <ProjectReference Include="..\Client\Deiarts.Presentation.Web.Client.csproj" />
     </ItemGroup>
 
