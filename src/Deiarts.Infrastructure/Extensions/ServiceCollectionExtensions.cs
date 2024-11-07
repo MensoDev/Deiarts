@@ -1,5 +1,6 @@
 using Deiarts.Application.RawMaterials;
 using Deiarts.Domain;
+using Deiarts.Domain.Products;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.DbContexts;
 using Deiarts.Infrastructure.Queries;
@@ -23,6 +24,7 @@ public static class ServiceCollectionExtensions
         
         // Repositories
         services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         
         // Queries
         services.AddScoped<IRawMaterialQueries, RawMaterialQueries>();

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Deiarts.Application.Products.Edit;
 using Deiarts.Application.RawMaterials.Edit;
 using Deiarts.Application.RawMaterials.Get;
 using Deiarts.Application.RawMaterials.List;
@@ -14,4 +15,5 @@ namespace Deiarts.Application;
 [JsonSerializable(typeof(GetRawMaterialResponse))]
 [JsonSerializable(typeof(ValueRequest<RawMaterialId>))]
 
+[JsonSerializable(typeof(EditProductRequest))]
 public partial class DeiartsSerializationContext : JsonSerializerContext;

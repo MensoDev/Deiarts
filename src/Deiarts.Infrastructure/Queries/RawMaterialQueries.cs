@@ -33,7 +33,8 @@ internal class RawMaterialQueries(DeiartsDbContext db) : IRawMaterialQueries
             .Select(rm => new GetRawMaterialResponse
             {
                 Id = rm.Id, 
-                Name = rm.Name, 
+                Name = rm.Name,
+                Brand = rm.Brand,
                 Description = rm.Description,
                 UnitOfMeasure = rm.UnitOfMeasure,
                 CostPerUnit = rm.CostPerUnit

@@ -1,4 +1,6 @@
 global using StronglyTypedIds;
+global using Cblx.Blocks;
+global using Deiarts.Common.Domain.Entities;
 using System.Runtime.CompilerServices;
 
 
