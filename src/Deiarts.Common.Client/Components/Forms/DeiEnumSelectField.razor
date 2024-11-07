@@ -1,0 +1,36 @@
+@using System.Linq.Expressions
+
+@typeparam TEnum where TEnum : struct, Enum
+
+<MudSelect
+    T="TEnum?"
+    Value="Value" ValueChanged="ValueChanged" For="ValueExpression"
+    Immediate Clearable AnchorOrigin="Origin.BottomCenter" Label="@Label" Placeholder="@Placeholder"
+    Variant="Variant.Outlined">
+
+    @foreach (var option in _options)
+    {
+        <MudSelectItem T="TEnum?" Value="option.Value">
+            <span>@option.Name</span>
+            @if (WithShortName)
+            {
+                <span>&ensp;-&ensp;@option.ShortName</span>
+            }
+        </MudSelectItem>
+    }
+</MudSelect>
+
+@code
+{
+    private EnumOption<TEnum>[] _options = [];
+
+    [Parameter, EditorRequired] public required TEnum? Value { get; set; }
+    [Parameter] public required EventCallback<TEnum?> ValueChanged { get; set; }
+    [Parameter] public required Expression<Func<TEnum?>> ValueExpression { get; set; }
+
+    [Parameter] public bool WithShortName { get; set; }
+    [Parameter, EditorRequired] public required string Label { get; set; }
+    [Parameter] public required string Placeholder { get; set; } = "Selecione uma opção";
+
+    protected override void OnInitialized() => _options = EnumExtensions.ToEnumOptions<TEnum>();
+}

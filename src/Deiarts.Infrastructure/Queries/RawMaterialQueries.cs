@@ -8,13 +8,20 @@ namespace Deiarts.Infrastructure.Queries;
 
 internal class RawMaterialQueries(DeiartsDbContext db) : IRawMaterialQueries
 {
-    public IQueryable<RawMaterial> Queryable() => db.RawMaterials.AsQueryable();
+    public IQueryable<RawMaterial> Queryable() => db.RawMaterials.AsNoTracking().AsQueryable();
 
     public async Task<ListRawMaterialsResponseItem[]> ListAsync()
     {
         return await db.RawMaterials
             .AsNoTracking()
-            .Select(rm => new ListRawMaterialsResponseItem { Id = rm.Id, Name = rm.Name, Description = rm.Description })
+            .Select(rm => new ListRawMaterialsResponseItem
+            {
+                Id = rm.Id,
+                Name = rm.Name,
+                Description = rm.Description,
+                UnitOfMeasure = rm.UnitOfMeasure,
+                CostPerUnit = rm.CostPerUnit
+            })
             .ToArrayAsync();
     }
 
@@ -23,7 +30,14 @@ internal class RawMaterialQueries(DeiartsDbContext db) : IRawMaterialQueries
         return db.RawMaterials
             .AsNoTracking()
             .Where(rm => rm.Id == id)
-            .Select(rm => new GetRawMaterialResponse { Id = rm.Id, Name = rm.Name, Description = rm.Description })
+            .Select(rm => new GetRawMaterialResponse
+            {
+                Id = rm.Id, 
+                Name = rm.Name, 
+                Description = rm.Description,
+                UnitOfMeasure = rm.UnitOfMeasure,
+                CostPerUnit = rm.CostPerUnit
+            })
             .FirstOrDefaultAsync();
     }
 }

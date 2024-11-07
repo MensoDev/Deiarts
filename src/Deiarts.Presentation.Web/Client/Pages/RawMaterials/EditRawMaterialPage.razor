@@ -2,8 +2,9 @@
 @page "/raw-materials/edit/{Id:guid}"
 
 @using Deiarts.Application.RawMaterials.Edit
-@using Deiarts.Common.Client.Services.Endpoints
-@using Deiarts.Common.Client.Services.Ui
+@using Deiarts.Application.RawMaterials.Get
+@using Deiarts.Domain.Enums
+@using Deiarts.Domain.RawMaterials
 
 @inject IEndpointService EndpointService
 @inject IUiUtils UiUtils
@@ -13,10 +14,23 @@
 
     <DeiPage Title="@Title" BackHref="@BackHref">
         <Content>
-            <div class="tw|grid tw|grid-cols-1 tw|gap-4">
-                <MudTextField Label="Nome" Placeholder="nome da matéria prima" @bind-Value="@_request.Name" For="() => _request.Name" Immediate Variant="Variant.Outlined"/>
+            <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 tw|gap-4">
+                <DeiTextField 
+                    @bind-Value="@_request.Name" Class="tw|col-span-full"
+                    Label="Nome" Placeholder="Nome da matéria prima"  />
 
-                <MudTextField Label="Descrição" Placeholder="descrição da matéria prima" @bind-Value="@_request.Description" For="() => _request.Description" Immediate Variant="Variant.Outlined" Lines="4"/>
+                <DeiTextField 
+                    @bind-Value="@_request.Description" Class="tw|col-span-full"
+                    Label="Descrição" Placeholder="Descrição da matéria prima" Lines="4"/>
+                
+                <DeiEnumSelectField 
+                    TEnum="UnitOfMeasureType"
+                    @bind-Value="@_request.UnitOfMeasure" 
+                    Label="Unidade de Medida" WithShortName />
+                
+                <DeiNumericField 
+                    @bind-Value="@_request.CostPerUnit"
+                    Label="Preço da unidade" Placeholder="Ex: 0,15"/>
             </div>
         </Content>
         <BottomAction>
@@ -25,7 +39,6 @@
     </DeiPage>
 
 </DeiEditForm>
-
 
 @code
 {
@@ -36,6 +49,18 @@
     private string Title => Id.HasValue ? "Editar Matéria Prima" : "Nova Matéria Prima";
 
     [Parameter] public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            var endpoint = new GetRawMaterialEndpoint();
+            var rawMaterial = await EndpointService.RequestAsync(endpoint, new RawMaterialId(Id.Value))
+                .Use(UiUtils)
+                .ShowError();
+            _request.CopyFrom(rawMaterial);
+        }
+    }
 
     private async Task OnValidSubmitAsync()
     {

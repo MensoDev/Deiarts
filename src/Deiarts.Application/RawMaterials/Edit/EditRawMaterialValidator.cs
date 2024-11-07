@@ -13,5 +13,14 @@ public class EditRawMaterialValidator : AbstractValidator<EditRawMaterialRequest
             .NotEmpty()
             .MinimumLength(10)
             .MaximumLength(500);
+
+        RuleFor(request => request.UnitOfMeasure)
+            .NotEmpty()
+            .IsInEnum();
+        
+        RuleFor(request => request.CostPerUnit)
+            .NotEmpty()
+            .PrecisionScale(18, 2, false)
+            .GreaterThan(0);
     }
 }

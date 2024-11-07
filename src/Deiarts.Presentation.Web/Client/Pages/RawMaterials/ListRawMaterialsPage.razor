@@ -1,7 +1,10 @@
 @page "/raw-materials"
 @using Deiarts.Application.RawMaterials.List
+@using Deiarts.Application.RawMaterials.Remove
+@using Deiarts.Domain.RawMaterials
 
 @inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
 
 <DeiPage Title="Matérias Prima" BackHref="/">
     <Action>
@@ -10,31 +13,41 @@
         </MudTooltip>
     </Action>
     <Content>
-        <DeiLoader Load="LoadAsync" CanRetry PreserveState>
+        <DeiLoader @ref="_loader" Load="LoadAsync" CanRetry PreserveState>
             @if (context.IsNotEmpty())
             {
                 <MudTable Items="context" Hover Elevation="0" Dense >
                     <HeaderContent>
                         <MudTh>Nome</MudTh>
                         <MudTh>Descrição</MudTh>
+                        <MudTh>Unidade de Medida</MudTh>
+                        <MudTh>Custo da Unidade</MudTh>
                         <MudTh Class="!tw|text-right"></MudTh>
                     </HeaderContent>
                     <RowTemplate Context="item">
                         <MudTd DataLabel="Nome">@item.Name</MudTd>
-                        <MudTd DataLabel="Descrição">@item.Description</MudTd>
+                        <MudTd DataLabel="Descrição">
+                            <span class="tw|line-clamp-1">
+                                @item.Description
+                            </span>
+                        </MudTd>
+                        <MudTd DataLabel="Unidade de Medida">@item.UnitOfMeasure.ToEnumOption().CombinedName</MudTd>
+                        <MudTd DataLabel="Custo da Unidade">@item.CostPerUnit.ToCurrency()</MudTd>
                         <MudTd Class="!tw|text-right">
-                            <MudTooltip Text="@($"Editar: {item.Name}")">
-                                <MudIconButton
-                                    Icon="@Icons.Material.Outlined.Edit"
-                                    Color="Color.Primary"
-                                    Href="@($"/raw-materials/edit/{item.Id}")" />
-                            </MudTooltip>
-                            <MudTooltip Text="@($"Remover: {item.Name}")">
-                                <MudIconButton
-                                    Icon="@Icons.Material.Outlined.Delete"
-                                    Color="Color.Error"
-                                    Href="@($"/raw-materials/edit/{item.Id}")" />
-                            </MudTooltip>
+                            <MudStack Row Spacing="4">
+                                <MudTooltip Text="@($"Editar: {item.Name}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Edit"
+                                        Color="Color.Primary"
+                                        Href="@($"/raw-materials/edit/{item.Id}")" />
+                                </MudTooltip>
+                                <MudTooltip Text="@($"Remover: {item.Name}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Delete"
+                                        Color="Color.Error"
+                                        OnClick="() => RemoveAsync(item.Id)"/>
+                                </MudTooltip>
+                            </MudStack>
                         </MudTd>
                     </RowTemplate>
                 </MudTable>
@@ -51,8 +64,23 @@
 
 @code 
 {
-    private async Task<ListRawMaterialsResponseItem[]> LoadAsync()
+    private DeiLoader<ListRawMaterialsResponseItem[]> _loader = default!;
+    
+    private async Task<ListRawMaterialsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListRawMaterialsEndpoint());
+    
+    private async Task RemoveAsync(RawMaterialId id)
     {
-        return await EndpointService.RequestAsync(new ListRawMaterialsEndpoint());
+        var confirm = await UiUtils.ConfirmAsync("Deseja realmente remover esta matéria prima?");
+        if (!confirm) return;
+        
+        var endpoint = new RemoveRawMaterialEndpoint();
+        
+        await EndpointService.RequestAsync(endpoint, id)
+            .Use(UiUtils)
+            .ShowBusy("Removendo matéria prima...")
+            .ShowError()
+            .ShowSuccess("Matéria prima removida com sucesso!");
+        
+        await _loader.ReloadAsync();
     }
 }

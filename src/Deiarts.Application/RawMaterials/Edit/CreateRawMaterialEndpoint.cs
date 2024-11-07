@@ -16,14 +16,24 @@ public class EditRawMaterialEndpoint() : CommandEndpoint<EditRawMaterialRequest>
 
         if (request.Id is null)
         {
-            rawMaterial = new RawMaterial(request.Name, request.Description);
+            rawMaterial = new RawMaterial(
+                request.Name, 
+                request.Description,
+                request.UnitOfMeasure.GetValueOrDefault(), 
+                request.CostPerUnit.GetValueOrDefault());
+            
             repository.Add(rawMaterial);
         }
         else
         {
             rawMaterial = await repository.GetAsync(request.Id.Value);
             Throw.Http.NotFound.When.Null(rawMaterial, "Matéria-prima não encontrada.");
-            rawMaterial.Update(request.Name, request.Description);
+            
+            rawMaterial.Update(
+                request.Name, 
+                request.Description,
+                request.UnitOfMeasure.GetValueOrDefault(), 
+                request.CostPerUnit.GetValueOrDefault());
         }
 
         await unitOfWork.SaveChangesAsync();

@@ -4,7 +4,7 @@ using Deiarts.Infrastructure.Configurations;
 
 namespace Deiarts.Infrastructure.DbContexts;
 
-public class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : DbContext(options), IUnitOfWork
+internal class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : DbContext(options), IUnitOfWork
 {
     public required DbSet<RawMaterial> RawMaterials { get; init; }
     

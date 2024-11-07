@@ -40,7 +40,7 @@
         .ToString();
 
     [Parameter, EditorRequired] public required string Title { get; set; }
-    [Parameter] public DeiMaxWidth MaxWidth { get; set; } = DeiMaxWidth.Large;
+    [Parameter] public DeiMaxWidth MaxWidth { get; set; } = DeiMaxWidth.ExtraLarge;
     [Parameter] public string BackHref { get; set; } = string.Empty;
 
     [Parameter, EditorRequired] public required RenderFragment Content { get; set; }

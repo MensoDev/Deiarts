@@ -5,32 +5,32 @@ namespace Deiarts.Domain.Enums;
 public enum UnitOfMeasureType
 {
     [Display(Name = "Quilograma", ShortName = "kg")]
-    Kilogram,
+    Kilogram = 1,
 
     [Display(Name = "Grama", ShortName = "g")]
-    Gram,
+    Gram = 2,
 
     [Display(Name = "Litro", ShortName = "L")]
-    Liter,
+    Liter = 11,
 
     [Display(Name = "Mililitro", ShortName = "mL")]
-    Milliliter,
+    Milliliter = 12,
 
     [Display(Name = "Metro", ShortName = "m")]
-    Meter,
+    Meter = 21,
 
     [Display(Name = "Centímetro", ShortName = "cm")]
-    Centimeter,
+    Centimeter = 22,
 
     [Display(Name = "Polegada", ShortName = "in")]
-    Inch,
+    Inch = 31,
 
     [Display(Name = "Pé", ShortName = "ft")]
-    Foot,
+    Foot = 32,
 
     [Display(Name = "Jarda", ShortName = "yd")]
-    Yard,
+    Yard = 41,
 
     [Display(Name = "Unidade", ShortName = "un")]
-    Piece
+    Piece = 42
 }

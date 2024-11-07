@@ -4,7 +4,7 @@ using Deiarts.Domain.RawMaterials;
 
 namespace Deiarts.Application.RawMaterials;
 
-public interface IRawMaterialQueries
+internal interface IRawMaterialQueries
 {
     IQueryable<RawMaterial> Queryable();
     
