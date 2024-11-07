@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
@@ -14,5 +15,5 @@ public static class StringExtensions
         return new string(chars);
     }
     
-    public static bool IsNotNullOrWhiteSpace(this string? value) => !string.IsNullOrWhiteSpace(value);
+    public static bool IsNotNullOrWhiteSpace([NotNullWhen(returnValue: true)] this string? value) => !string.IsNullOrWhiteSpace(value);
 }

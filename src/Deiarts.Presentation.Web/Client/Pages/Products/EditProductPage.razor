@@ -1,0 +1,72 @@
+@page "/products/edit/{Id:guid}"
+@page "/products/new"
+
+@using Deiarts.Application.Products.Edit
+@using Deiarts.Application.Products.Get
+@using Deiarts.Domain.Products
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm OnValidSubmit="OnValidSubmitAsync" Model="_request" Validator="_validator">
+
+    <DeiPage Title="@Title" BackHref="@BackHref">
+        <Content>
+            <div class="tw|grid tw|grid-cols-1 tw|gap-4">
+                <DeiTextField
+                    @bind-Value="@_request.Name"
+                    Label="Nome" Placeholder="Nome do produto"/>
+
+                <DeiTextField
+                    @bind-Value="@_request.Description"
+                    Label="Descrição" Placeholder="Descrição do produto" Lines="4"/>
+                
+                <DeiProductCompositionsField @bind-Value="@_request.Compositions" />
+                
+            </div>
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Salvar</MudButton>
+        </BottomAction>
+    </DeiPage>
+
+</DeiEditForm>
+
+@code
+{
+    private const string BackHref = "/products";
+
+    private readonly EditProductRequest _request = new();
+    private readonly EditProductValidator _validator = new();
+
+    private string Title => Id.HasValue ? "Editar Produto" : "Nova Produto";
+
+    [Parameter] public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            var endpoint = new GetProductEndpoint();
+            var product = await EndpointService.RequestAsync(endpoint, new ProductId(Id.Value))
+                .Use(UiUtils)
+                .ShowError();
+
+            _request.CopyFrom(product);
+        }
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new EditProductEndpoint();
+        await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy(Id.HasValue ? "Gravando alterações..." : "Salvando novo produto...")
+            .ShowError()
+            .ShowSuccess("Produto salvo com sucesso!");
+
+        NavigationManager.NavigateTo(BackHref);
+    }
+}

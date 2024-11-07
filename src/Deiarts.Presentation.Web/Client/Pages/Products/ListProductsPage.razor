@@ -1,47 +1,42 @@
-@page "/raw-materials"
-@using Deiarts.Application.RawMaterials.List
-@using Deiarts.Application.RawMaterials.Remove
-@using Deiarts.Domain.RawMaterials
+@page "/products"
+@using Deiarts.Application.Products.List
+@using Deiarts.Domain.Products
 
 @inject IEndpointService EndpointService
 @inject IUiUtils UiUtils
 
-<DeiPage Title="Matérias Prima" BackHref="/">
+<DeiPage Title="Produtos" BackHref="@BackHref">
     <Action>
-        <MudTooltip Text="Novo item">
-            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" Href="/raw-materials/new"/>
+        <MudTooltip Text="Novo produto">
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" Href="/products/new"/>
         </MudTooltip>
     </Action>
     <Content>
         <DeiLoader @ref="_loader" Load="LoadAsync" CanRetry PreserveState>
             @if (context.IsNotEmpty())
             {
-                <MudTable Items="context" Hover Elevation="0" Dense >
+                <MudTable Items="context" Hover Elevation="0" Dense>
                     <HeaderContent>
                         <MudTh>Nome</MudTh>
-                        <MudTh>Marca</MudTh>
                         <MudTh>Descrição</MudTh>
-                        <MudTh>Unidade de Medida</MudTh>
-                        <MudTh>Custo da Unidade</MudTh>
+                        <MudTh>Componentes</MudTh>
                         <MudTh Class="!tw|text-right"></MudTh>
                     </HeaderContent>
                     <RowTemplate Context="item">
                         <MudTd DataLabel="Nome">@item.Name</MudTd>
-                        <MudTd DataLabel="Marca">@item.Brand</MudTd>
                         <MudTd DataLabel="Descrição">
                             <span class="tw|line-clamp-1">
                                 @item.Description
                             </span>
                         </MudTd>
-                        <MudTd DataLabel="Unidade de Medida">@item.UnitOfMeasure.ToEnumOption().CombinedName</MudTd>
-                        <MudTd DataLabel="Custo da Unidade">@item.CostPerUnit.ToCurrency()</MudTd>
+                        <MudTd DataLabel="Componentes">@item.CompositionsCount</MudTd>
                         <MudTd Class="!tw|text-right">
                             <MudStack Row Spacing="4">
                                 <MudTooltip Text="@($"Editar: {item.Name}")">
                                     <MudIconButton
                                         Icon="@Icons.Material.Outlined.Edit"
                                         Color="Color.Primary"
-                                        Href="@($"/raw-materials/edit/{item.Id}")" />
+                                        Href="@($"/products/edit/{item.Id}")"/>
                                 </MudTooltip>
                                 <MudTooltip Text="@($"Remover: {item.Name}")">
                                     <MudIconButton
@@ -57,33 +52,33 @@
             else
             {
                 <MudAlert Severity="Severity.Info">
-                    Não há matérias primas cadastradas.
+                    Não há produtos cadastradas.
                 </MudAlert>
             }
         </DeiLoader>
     </Content>
 </DeiPage>
 
-@code 
+@code
 {
-    private DeiLoader<ListRawMaterialsResponseItem[]> _loader = default!;
-    
-    private async Task<ListRawMaterialsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListRawMaterialsEndpoint(), new ListRawMaterialRequest());
-    
-    private async Task RemoveAsync(RawMaterialId id)
+    private const string BackHref = "/";
+    private DeiLoader<ListProductsResponseItem[]> _loader = default!;
+
+    private async Task<ListProductsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListProductsEndpoint());
+
+    private async Task RemoveAsync(ProductId id)
     {
-        var confirm = await UiUtils.ConfirmAsync("Deseja realmente remover esta matéria prima?");
-        
+        var confirm = await UiUtils.ConfirmAsync("Deseja realmente remover este produto?");
         if (!confirm) return;
-        
-        var endpoint = new RemoveRawMaterialEndpoint();
-        
-        await EndpointService.RequestAsync(endpoint, id)
-            .Use(UiUtils)
-            .ShowBusy("Removendo matéria prima...")
-            .ShowError()
-            .ShowSuccess("Matéria prima removida com sucesso!");
-        
+
+        // var endpoint = new RemoveRawMaterialEndpoint();
+        //
+        // await EndpointService.RequestAsync(endpoint, id)
+        //     .Use(UiUtils)
+        //     .ShowBusy("Removendo matéria prima...")
+        //     .ShowError()
+        //     .ShowSuccess("Matéria prima removida com sucesso!");
+
         await _loader.ReloadAsync();
     }
 }

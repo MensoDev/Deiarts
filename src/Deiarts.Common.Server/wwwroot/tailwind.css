@@ -604,12 +604,20 @@ video {
   -webkit-line-clamp: 1;
 }
 
+.tw\|block {
+  display: block;
+}
+
 .tw\|flex {
   display: flex;
 }
 
 .tw\|grid {
   display: grid;
+}
+
+.\!tw\|min-w-\[600px\] {
+  min-width: 600px !important;
 }
 
 .tw\|max-w-screen-2xl {
@@ -648,6 +656,10 @@ video {
   gap: 1.5rem;
 }
 
+.tw\|bg-opacity-25 {
+  --tw-bg-opacity: 0.25;
+}
+
 .tw\|px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -660,6 +672,18 @@ video {
 
 .\!tw\|text-right {
   text-align: right !important;
+}
+
+.tw\|opacity-40 {
+  opacity: 0.4;
+}
+
+.tw\|opacity-20 {
+  opacity: 0.2;
+}
+
+.tw\|opacity-75 {
+  opacity: 0.75;
 }
 
 @media (min-width: 640px) {

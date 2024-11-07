@@ -1,8 +1,8 @@
-namespace Deiarts.Application.Products.Edit;
+namespace Deiarts.Application.Products;
 
-public class EditProductCompositionValidator : AbstractValidator<EditProductCompositionDto>
+public class ProductCompositionValidator : AbstractValidator<ProductCompositionModel>
 {
-    public EditProductCompositionValidator()
+    public ProductCompositionValidator()
     {
         RuleFor(dto => dto.Description).NotEmpty().MinimumLength(10).MaximumLength(100);
         RuleFor(dto => dto.Quantity).GreaterThan(0);

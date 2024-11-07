@@ -4,6 +4,7 @@ using Deiarts.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deiarts.Infrastructure.Migrations
 {
     [DbContext(typeof(DeiartsDbContext))]
-    partial class DeiartsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241107204046_ProductAndCompositionChanges")]
+    partial class ProductAndCompositionChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

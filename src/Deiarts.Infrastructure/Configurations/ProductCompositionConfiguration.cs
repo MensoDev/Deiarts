@@ -10,7 +10,7 @@ internal class ProductCompositionConfiguration : IEntityTypeConfiguration<Produc
         // Table
         
         builder.HasKey(composition => composition.Id);
-        builder.Property(composition => composition.Id).ValueGeneratedNever();
+        builder.Property(composition => composition.Id).ValueGeneratedOnAdd();
         
         // Properties
         

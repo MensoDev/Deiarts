@@ -12,6 +12,6 @@ public class EditProductValidator : AbstractValidator<EditProductRequest>
             .WithMessage("Deve ser informado ao menos uma composição.");
         
         RuleForEach(request => request.Compositions)
-            .SetValidator(new EditProductCompositionValidator());
+            .SetValidator(new ProductCompositionValidator());
     }
 }

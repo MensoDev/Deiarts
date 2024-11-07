@@ -9,7 +9,7 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
         // Table
         
         builder.HasKey(product => product.Id);
-        builder.Property(product => product.Id).ValueGeneratedNever();
+        builder.Property(product => product.Id).ValueGeneratedOnAdd();
         
         // Properties
         
