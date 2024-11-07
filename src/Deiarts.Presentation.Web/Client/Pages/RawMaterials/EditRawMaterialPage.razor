@@ -1,0 +1,77 @@
+@page "/raw-materials/new"
+@page "/raw-materials/edit/{Id:guid}"
+
+@using Deiarts.Application.RawMaterials.Edit
+@using Deiarts.Application.RawMaterials.Get
+@using Deiarts.Domain.Enums
+@using Deiarts.Domain.RawMaterials
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm OnValidSubmit="OnValidSubmitAsync" Model="_request" Validator="_validator">
+
+    <DeiPage Title="@Title" BackHref="@BackHref">
+        <Content>
+            <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 tw|gap-4">
+                <DeiTextField 
+                    @bind-Value="@_request.Name" Class="tw|col-span-full"
+                    Label="Nome" Placeholder="Nome da matéria prima"  />
+
+                <DeiTextField 
+                    @bind-Value="@_request.Description" Class="tw|col-span-full"
+                    Label="Descrição" Placeholder="Descrição da matéria prima" Lines="4"/>
+                
+                <DeiEnumSelectField 
+                    TEnum="UnitOfMeasureType"
+                    @bind-Value="@_request.UnitOfMeasure" 
+                    Label="Unidade de Medida" WithShortName />
+                
+                <DeiNumericField 
+                    @bind-Value="@_request.CostPerUnit"
+                    Label="Preço da unidade" Placeholder="Ex: 0,15"/>
+            </div>
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Salvar</MudButton>
+        </BottomAction>
+    </DeiPage>
+
+</DeiEditForm>
+
+@code
+{
+    private readonly EditRawMaterialRequest _request = new();
+    private readonly EditRawMaterialValidator _validator = new();
+    private const string BackHref = "/raw-materials";
+
+    private string Title => Id.HasValue ? "Editar Matéria Prima" : "Nova Matéria Prima";
+
+    [Parameter] public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            var endpoint = new GetRawMaterialEndpoint();
+            var rawMaterial = await EndpointService.RequestAsync(endpoint, new RawMaterialId(Id.Value))
+                .Use(UiUtils)
+                .ShowError();
+            _request.CopyFrom(rawMaterial);
+        }
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new EditRawMaterialEndpoint();
+        await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy(Id.HasValue ? "Gravando alterações..." : "Salvando nova matéria prima...")
+            .ShowError()
+            .ShowSuccess("Matéria prima salva com sucesso!");
+
+        NavigationManager.NavigateTo(BackHref);
+    }
+}

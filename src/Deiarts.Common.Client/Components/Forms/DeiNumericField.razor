@@ -1,0 +1,27 @@
+@typeparam TValue
+@using System.Linq.Expressions
+@inherits MudNumericField<TValue>
+@{
+    base.BuildRenderTree(__builder);
+}
+@code 
+{
+    public DeiNumericField()
+    {
+        Immediate = true;
+        Variant = Variant.Outlined;
+        Culture = CultureHelper.Brazilian;
+    }
+    
+    // MudBlazor não respeita a Tríade
+    // - ValueChanged
+    // - Value
+    // - ValueExpression
+    // Atenção aqui caso um dia o MudBlazor corrija isso
+    [Parameter] 
+    public Expression<Func<TValue>>? ValueExpression 
+    { 
+        get => For; 
+        set => For = value; 
+    }
+}

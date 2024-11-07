@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsTrimmable>true</IsTrimmable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cblx.Blocks.Analyzers.Endpoints" Version="0.8.1"/>
+        <PackageReference Include="FluentValidation" Version="11.10.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Deiarts.Common\Deiarts.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Internals\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- (!) Solução para compartilhamento de projetos entre Server e Client. Pode ser pensanda solução mais adequada com o lançamento do TFM Browser, provavelmente no .NET 10 -->
+        <!-- A adição explícita da lib de Pipelines evitar warnings -->
+        <PackageReference Include="System.IO.Pipelines" Version="8.0.0"/>
+        <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+            <SpecificVersion>false</SpecificVersion>
+            <HintPath>..\..\.libs\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>

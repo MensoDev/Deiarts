@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Deiarts.Common.Application\Deiarts.Common.Application.csproj"/>
+        <ProjectReference Include="..\Deiarts.Common.Client\Deiarts.Common.Client.csproj"/>
+        <ProjectReference Include="..\Deiarts.Common\Deiarts.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Services\"/>
+        <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+</Project>

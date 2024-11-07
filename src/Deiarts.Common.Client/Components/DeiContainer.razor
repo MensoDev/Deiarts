@@ -1,0 +1,20 @@
+@inherits DeiComponentBase
+
+<div class="@CssClass" style="@Style" @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code
+{
+    private string CssClass => new CssBuilder("tw|container tw|mx-auto")
+        .AddClass(Class)
+        .AddClass("tw|max-w-screen-sm", MaxWidth is DeiMaxWidth.Small)
+        .AddClass("tw|max-w-screen-md", MaxWidth is DeiMaxWidth.Medium)
+        .AddClass("tw|max-w-screen-lg", MaxWidth is DeiMaxWidth.Large)
+        .AddClass("tw|max-w-screen-xl", MaxWidth is DeiMaxWidth.ExtraLarge)
+        .AddClass("tw|max-w-screen-2xl", MaxWidth is DeiMaxWidth.ExtraExtraLarge)
+        .ToString();
+
+    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
+    [Parameter] public DeiMaxWidth MaxWidth { get; set; } = DeiMaxWidth.ExtraLarge;
+}

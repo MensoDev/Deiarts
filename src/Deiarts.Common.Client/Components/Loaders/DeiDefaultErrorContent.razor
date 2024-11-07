@@ -1,0 +1,18 @@
+@using BlazorDevKit
+
+<MudStack Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
+    <MudIcon Icon="@Icons.Material.Outlined.Error" Size="Size.Large"/>
+    <MudText>@ErrorResult.Exception.Message</MudText>
+    <MudText>@ErrorResult.Exception.HelpLink</MudText>
+    @if (ErrorResult.Loader.CanRetry)
+    {
+        <MudButton OnClick="ErrorResult.Loader.ReloadAsync">
+            @(ErrorResult.Loader.CanRetryTitle.IsNotNullOrWhiteSpace() ? ErrorResult.Loader.CanRetryTitle : "Tentar novamente")
+        </MudButton>
+    }
+</MudStack>
+
+@code 
+{
+    [Parameter] public required BdkLoaderErrorResult ErrorResult { get; set; }
+}

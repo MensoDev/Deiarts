@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsTrimmable>true</IsTrimmable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Deiarts.Common.Application\Deiarts.Common.Application.csproj"/>
+        <ProjectReference Include="..\Deiarts.Domain\Deiarts.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- (!) Solução para compartilhamento de projetos entre Server e Client. Pode ser pensanda solução mais adequada com o lançamento do TFM Browser, provavelmente no .NET 10 -->
+        <!-- A adição explícita da lib de Pipelines evitar warnings -->
+        <PackageReference Include="System.IO.Pipelines" Version="8.0.0"/>
+        <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions">
+            <SpecificVersion>false</SpecificVersion>
+            <HintPath>..\..\.libs\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+            <SpecificVersion>false</SpecificVersion>
+            <HintPath>..\..\.libs\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.AspNetCore.Http.Features">
+            <SpecificVersion>false</SpecificVersion>
+            <HintPath>..\..\.libs\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>
