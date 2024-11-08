@@ -3,6 +3,7 @@ global using Deiarts.Common.Application;
 global using Deiarts.Domain;
 global using FluentValidation;
 global using Menso.Tools.Exceptions;
+global using Microsoft.AspNetCore.Http;
 
 global using static Deiarts.Application.DeiartsSerializationContext;
 

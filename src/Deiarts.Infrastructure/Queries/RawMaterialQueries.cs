@@ -1,9 +1,7 @@
 using Deiarts.Application.RawMaterials;
 using Deiarts.Application.RawMaterials.Get;
 using Deiarts.Application.RawMaterials.List;
-using Deiarts.Common.Extensions;
 using Deiarts.Domain.RawMaterials;
-using Deiarts.Infrastructure.DbContexts;
 
 namespace Deiarts.Infrastructure.Queries;
 

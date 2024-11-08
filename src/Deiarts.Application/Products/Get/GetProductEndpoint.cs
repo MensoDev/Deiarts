@@ -1,6 +1,3 @@
-using Deiarts.Domain.Products;
-using Microsoft.AspNetCore.Http;
-
 namespace Deiarts.Application.Products.Get;
 
 public class GetProductEndpoint() : QueryEndpoint<GetProductResponse, ValueRequest<ProductId>>(

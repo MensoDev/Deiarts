@@ -1,9 +1,9 @@
+using Deiarts.Application.Customers;
 using Deiarts.Application.Products;
 using Deiarts.Application.RawMaterials;
-using Deiarts.Domain;
+using Deiarts.Domain.Customers;
 using Deiarts.Domain.Products;
 using Deiarts.Domain.RawMaterials;
-using Deiarts.Infrastructure.DbContexts;
 using Deiarts.Infrastructure.Queries;
 using Deiarts.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -26,9 +26,11 @@ public static class ServiceCollectionExtensions
         // Repositories
         services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         
         // Queries
         services.AddScoped<IRawMaterialQueries, RawMaterialQueries>();
         services.AddScoped<IProductQueries, ProductQueries>();
+        services.AddScoped<ICustomerQueries, CustomerQueries>();
     }
 }

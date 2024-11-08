@@ -1,5 +1,4 @@
 using Deiarts.Domain.Products;
-using Deiarts.Infrastructure.DbContexts;
 
 namespace Deiarts.Infrastructure.Repositories;
 

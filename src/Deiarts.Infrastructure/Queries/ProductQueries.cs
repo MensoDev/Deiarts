@@ -1,9 +1,6 @@
 using Deiarts.Application.Products;
 using Deiarts.Application.Products.Get;
 using Deiarts.Application.Products.List;
-using Deiarts.Common.Application;
-using Deiarts.Domain.Products;
-using Deiarts.Infrastructure.DbContexts;
 
 namespace Deiarts.Infrastructure.Queries;
 

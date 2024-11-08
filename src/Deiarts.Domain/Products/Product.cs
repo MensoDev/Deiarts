@@ -2,8 +2,6 @@ using Deiarts.Domain.RawMaterials;
 
 namespace Deiarts.Domain.Products;
 
-[StronglyTypedId] public readonly partial struct ProductId;
-
 [HasPrivateEmptyConstructor]
 internal partial class Product : Entity<ProductId>, IAggregateRoot
 {

@@ -1,10 +1,6 @@
-using Cblx.Blocks;
-using Deiarts.Common.Domain.Entities;
 using Deiarts.Domain.RawMaterials;
 
 namespace Deiarts.Domain.Products;
-
-[StronglyTypedId] public readonly partial struct ProductCompositionId;
 
 [HasPrivateEmptyConstructor]
 internal partial class ProductComposition : Entity<ProductCompositionId>

@@ -14,7 +14,7 @@ internal class ProductCompositionConfiguration : IEntityTypeConfiguration<Produc
         
         // Properties
         
-        builder.Property(composition => composition.Description).IsRequired();
+        builder.Property(composition => composition.Description).IsRequired().HasMaxLength(500);
         builder.Property(composition => composition.Quantity).IsRequired();
         
         // FKs

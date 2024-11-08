@@ -1,4 +1,7 @@
 using System.Text.Json.Serialization;
+using Deiarts.Application.Customers.Edit;
+using Deiarts.Application.Customers.Get;
+using Deiarts.Application.Customers.List;
 using Deiarts.Application.Products.Edit;
 using Deiarts.Application.Products.Get;
 using Deiarts.Application.Products.List;
@@ -23,4 +26,9 @@ namespace Deiarts.Application;
 [JsonSerializable(typeof(ListProductsResponseItem[]))]
 [JsonSerializable(typeof(ValueRequest<ProductId>))]
 
+[JsonSerializable(typeof(EditCustomerRequest))]
+[JsonSerializable(typeof(GetCustomerResponse))]
+[JsonSerializable(typeof(ListCustomersRequest))]
+[JsonSerializable(typeof(ListCustomersResponseItem[]))]
+[JsonSerializable(typeof(ValueRequest<CustomerId>))]
 public partial class DeiartsSerializationContext : JsonSerializerContext;
