@@ -1,0 +1,57 @@
+@using Deiarts.Application.Products
+
+<DeiEditForm Model="_model" Validator="_validator" OnValidSubmit="Submit">
+    <MudDialog Class="!tw|min-w-[600px]">
+        <TitleContent>
+            @(Composition.IsNotNull() ? "Editar composição" : "Criar composição")
+        </TitleContent>
+        <DialogContent>
+            <MudStack Spacing="4">
+
+                <DeiTextField
+                    @bind-Value="@_model.Description" Class="tw|col-span-full"
+                    Label="Descrição" Placeholder="Descrição da matéria prima" Lines="4"/>
+
+                <MudDivider/>
+                
+                <DeiRawMaterialSelectorField
+                    @bind-Value="@_model.RawMaterialId"
+                    Label="Matéria Prima" Placeholder="Selecione a matéria prima"/>
+                
+                <DeiNumericField
+                    @bind-Value="@_model.Quantity"
+                    Label="Quantidade" Placeholder="Ex: 3"/>
+
+            </MudStack>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Outlined" Color="Color.Error" ButtonType="ButtonType.Button" OnClick="Cancel">
+                Cancelar
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">
+                Adicionar
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</DeiEditForm>
+
+@code 
+{
+    private readonly ProductCompositionModel _model = new();
+    private readonly ProductCompositionValidator _validator = new();
+    
+    [CascadingParameter] public required MudDialogInstance MudDialog { get; set; }
+    
+    [Parameter] public ProductCompositionModel? Composition { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender || Composition is null) return;
+        
+        _model.CopyFrom(Composition);
+        StateHasChanged();
+    }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(_model));
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -1,0 +1,49 @@
+@inherits DeiComponentBase
+
+@typeparam TValue
+
+<MudAutocomplete
+    T="TValue?"
+    @ref="_autocomplete"
+    @attributes="AdditionalAttributes"
+    
+    Value="Value"
+    ValueChanged="ValueChanged"
+    For="ValueExpression"
+    
+    Label="@Label"
+    ShowProgressIndicator
+    
+    SearchFunc="SearchAsync"
+    ToStringFunc="ToStringFunc"
+    OnClearButtonClick="ClearAsync"
+    
+    Disabled="Disabled"
+    ReadOnly="ReadOnly"
+    Clearable="Clearable"
+    Margin="Margin.None"
+    Variant="Variant.Outlined"
+    Placeholder="@Placeholder"
+    Class="@Class"
+    Style="@Style"
+    
+    MaxItems="null">
+    
+    <BeforeItemsTemplate>
+        @GetHelpText(_autocomplete.Label ?? _autocomplete.Placeholder ?? string.Empty)
+    </BeforeItemsTemplate>
+    
+    <NoItemsTemplate>
+        <MudText Align="Align.Center" Class="px-4 py-1">
+            @if (string.IsNullOrWhiteSpace(_currentTerm))
+            {
+                <MudText>Nenhum item para "@_autocomplete.Label" encontrado</MudText>
+            }
+            else
+            {
+                <MudText>Nenhum item de "@_autocomplete.Label" encontrado para o termo "@_currentTerm"</MudText>
+            }
+        </MudText>
+    </NoItemsTemplate>
+    
+</MudAutocomplete>

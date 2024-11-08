@@ -1,0 +1,84 @@
+@using System.Linq.Expressions
+@using Deiarts.Application.Products
+
+@inject IDialogService DialogService
+
+<MudStack>
+    <MudStack Row Justify="Justify.SpaceBetween" Spacing="4" Wrap="Wrap.Wrap" AlignItems="AlignItems.Center">
+        <MudText Typo="Typo.h6">Composição</MudText>
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="CreateCompositionAsync">
+            Adicionar Matéria Prima
+        </MudButton>
+    </MudStack>
+    <MudDivider/>
+    <MudStack>
+        @foreach (var composition in Value)
+        {
+            <DeiProductCompositionItem Composition="composition" OnEdit="EditCompositionAsync" OnRemove="RemoveCompositionAsync"/>
+            <MudDivider/>
+        }
+        
+        @if(Value.Count <= 0)
+        {
+            <MudText Typo="Typo.body2">Nenhuma composição cadastrada, por favor adicione pelo menos uma!</MudText>
+        }
+        <ValidationMessage For="ValueExpression" class="mud-input-helper-text mud-input-error tw|block"/>
+    </MudStack>
+    
+</MudStack>
+
+@code 
+{
+    [Parameter, EditorRequired] public required List<ProductCompositionModel> Value { get; set; }
+    [Parameter] public required EventCallback<List<ProductCompositionModel>> ValueChanged { get; set; }
+    [Parameter] public required Expression<Func<List<ProductCompositionModel>>> ValueExpression { get; set; }
+
+    private async Task CreateCompositionAsync()
+    {
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            BackdropClick = false,
+            CloseOnEscapeKey = false
+        };
+        
+        var dialog = await DialogService.ShowAsync<DeiProductCompositionDialog>("Criar composição", options);
+        var result = await dialog.Result;
+        
+        if(result is { Canceled: false, Data: ProductCompositionModel composition })
+        {
+            Value.Add(composition);
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+    
+    private async Task RemoveCompositionAsync(ProductCompositionModel composition)
+    {
+        Value.Remove(composition);
+        await ValueChanged.InvokeAsync(Value);
+    }
+    
+    private async Task EditCompositionAsync(ProductCompositionModel composition)
+    {
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            BackdropClick = false,
+            CloseOnEscapeKey = false
+        };
+        
+        var parameters = new DialogParameters<DeiProductCompositionDialog>
+        {
+            { d => d.Composition, composition }
+        };
+        
+        var dialog = await DialogService.ShowAsync<DeiProductCompositionDialog>("Editar composição", parameters, options);
+        var result = await dialog.Result;
+        
+        if(result is { Canceled: false, Data: ProductCompositionModel editedComposition })
+        {
+            Value[Value.IndexOf(composition)] = editedComposition;
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

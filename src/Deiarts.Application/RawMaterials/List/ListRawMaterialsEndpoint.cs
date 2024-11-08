@@ -1,11 +1,16 @@
+using Microsoft.AspNetCore.Http;
+
 namespace Deiarts.Application.RawMaterials.List;
 
-public class ListRawMaterialsEndpoint() : QueryEndpoint<ListRawMaterialsResponseItem[]>(
+public class ListRawMaterialsEndpoint() : QueryEndpoint<ListRawMaterialsResponseItem[], ListRawMaterialRequest>(
     Default.ListRawMaterialsResponseItemArray,
+    Default.ListRawMaterialRequest,
     allowAnonymous: true)
 {
-    internal static async Task<ListRawMaterialsResponseItem[]> ExecuteAsync(IRawMaterialQueries queries)
+    internal static async Task<ListRawMaterialsResponseItem[]> ExecuteAsync(
+        [AsParameters] ListRawMaterialRequest request,
+        IRawMaterialQueries queries)
     {
-        return await queries.ListAsync();
+        return await queries.ListAsync(request.Term);
     }
 }

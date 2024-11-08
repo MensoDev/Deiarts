@@ -1,0 +1,80 @@
+@page "/customers"
+
+@using Deiarts.Application.Customers.List
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+
+<DeiPage Title="Clientes" BackHref="/">
+    <Action>
+        <MudTooltip Text="Novo cliente">
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" Href="/customers/new"/>
+        </MudTooltip>
+    </Action>
+    <Content>
+        <DeiLoader @ref="_loader" Load="LoadAsync" CanRetry PreserveState>
+            @if (context.IsNotEmpty())
+            {
+                <MudTable Items="context" Hover Elevation="0" Dense>
+                    <HeaderContent>
+                        <MudTh>Nome</MudTh>
+                        <MudTh>Celular</MudTh>
+                        <MudTh>E-Mail</MudTh>
+                        <MudTh Class="!tw|text-right"></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="item">
+                        <MudTd DataLabel="Nome">@item.Name</MudTd>
+                        <MudTd DataLabel="Celular">@item.Phone</MudTd>
+                        <MudTd DataLabel="E-Mail">@item.Email</MudTd>
+                        <MudTd Class="!tw|text-right">
+                            <MudStack Row Spacing="4">
+                                <MudTooltip Text="@($"Editar: {item.Name}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Edit"
+                                        Color="Color.Primary"
+                                        Href="@($"/customers/edit/{item.Id}")"/>
+                                </MudTooltip>
+                                <MudTooltip Text="@($"Remover: {item.Name}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Delete"
+                                        Color="Color.Error"
+                                        OnClick="() => RemoveAsync(item.Id)"/>
+                                </MudTooltip>
+                            </MudStack>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Info">
+                    Não há clientes cadastrados
+                </MudAlert>
+            }
+        </DeiLoader>
+    </Content>
+</DeiPage>
+
+@code
+{
+    private DeiLoader<ListCustomersResponseItem[]> _loader = default!;
+
+    private async Task<ListCustomersResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListCustomersEndpoint(), new ListCustomersRequest());
+
+    private async Task RemoveAsync(CustomerId id)
+    {
+        var confirm = await UiUtils.ConfirmAsync("Deseja realmente remover este cliente?");
+
+        if (!confirm) return;
+
+        // var endpoint = new RemoveRawMaterialEndpoint();
+        //
+        // await EndpointService.RequestAsync(endpoint, id)
+        //     .Use(UiUtils)
+        //     .ShowBusy("Removendo matéria prima...")
+        //     .ShowError()
+        //     .ShowSuccess("Matéria prima removida com sucesso!");
+
+        await _loader.ReloadAsync();
+    }
+}

@@ -22,7 +22,7 @@
 
 @code
 {
-    private EnumOption<TEnum>[] _options = [];
+    private ChoiceEnumOption<TEnum>[] _options = [];
 
     [Parameter, EditorRequired] public required TEnum? Value { get; set; }
     [Parameter] public required EventCallback<TEnum?> ValueChanged { get; set; }

@@ -1,7 +1,6 @@
 @page "/raw-materials"
 @using Deiarts.Application.RawMaterials.List
 @using Deiarts.Application.RawMaterials.Remove
-@using Deiarts.Domain.RawMaterials
 
 @inject IEndpointService EndpointService
 @inject IUiUtils UiUtils
@@ -19,6 +18,7 @@
                 <MudTable Items="context" Hover Elevation="0" Dense >
                     <HeaderContent>
                         <MudTh>Nome</MudTh>
+                        <MudTh>Marca</MudTh>
                         <MudTh>Descrição</MudTh>
                         <MudTh>Unidade de Medida</MudTh>
                         <MudTh>Custo da Unidade</MudTh>
@@ -26,6 +26,7 @@
                     </HeaderContent>
                     <RowTemplate Context="item">
                         <MudTd DataLabel="Nome">@item.Name</MudTd>
+                        <MudTd DataLabel="Marca">@item.Brand</MudTd>
                         <MudTd DataLabel="Descrição">
                             <span class="tw|line-clamp-1">
                                 @item.Description
@@ -66,11 +67,12 @@
 {
     private DeiLoader<ListRawMaterialsResponseItem[]> _loader = default!;
     
-    private async Task<ListRawMaterialsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListRawMaterialsEndpoint());
+    private async Task<ListRawMaterialsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListRawMaterialsEndpoint(), new ListRawMaterialRequest());
     
     private async Task RemoveAsync(RawMaterialId id)
     {
         var confirm = await UiUtils.ConfirmAsync("Deseja realmente remover esta matéria prima?");
+        
         if (!confirm) return;
         
         var endpoint = new RemoveRawMaterialEndpoint();

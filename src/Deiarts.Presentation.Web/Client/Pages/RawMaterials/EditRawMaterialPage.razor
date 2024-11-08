@@ -4,7 +4,6 @@
 @using Deiarts.Application.RawMaterials.Edit
 @using Deiarts.Application.RawMaterials.Get
 @using Deiarts.Domain.Enums
-@using Deiarts.Domain.RawMaterials
 
 @inject IEndpointService EndpointService
 @inject IUiUtils UiUtils
@@ -16,8 +15,12 @@
         <Content>
             <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 tw|gap-4">
                 <DeiTextField 
-                    @bind-Value="@_request.Name" Class="tw|col-span-full"
+                    @bind-Value="@_request.Name"
                     Label="Nome" Placeholder="Nome da matéria prima"  />
+
+                <DeiTextField
+                    @bind-Value="@_request.Brand"
+                    Label="Marca" Placeholder="Nome da marca da matéria prima"  />
 
                 <DeiTextField 
                     @bind-Value="@_request.Description" Class="tw|col-span-full"

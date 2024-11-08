@@ -1,0 +1,73 @@
+@page "/customers/new"
+@page "/customers/edit/{Id:guid}"
+
+@using Deiarts.Application.Customers.Edit
+@using Deiarts.Application.Customers.Get
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm OnValidSubmit="OnValidSubmitAsync" Model="_request" Validator="_validator">
+
+    <DeiPage Title="@Title" BackHref="@BackHref">
+        <Content>
+            <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 tw|gap-4">
+                <DeiTextField 
+                    @bind-Value="@_request.Name"
+                    Label="Nome" Placeholder="Nome do Cliente"  />
+
+                <DeiTextField
+                    @bind-Value="@_request.Phone"
+                    Label="Celular" Placeholder="Celular"  />
+
+                <DeiTextField
+                    @bind-Value="@_request.Email"
+                    Label="E-mail" Placeholder="E-mail"  />
+            </div>
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">Salvar</MudButton>
+        </BottomAction>
+    </DeiPage>
+
+</DeiEditForm>
+
+@code
+{
+    private readonly EditCustomerRequest _request = new();
+    private readonly EditCustomerValidator _validator = new();
+    private const string BackHref = "/customers";
+
+    private string Title => Id.HasValue ? "Editar Cliente" : "Novo Cliente";
+
+    [Parameter] public Guid? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            var endpoint = new GetCustomerEndpoint();
+            var customer = await EndpointService.RequestAsync(endpoint, new CustomerId(Id.Value))
+                .Use(UiUtils)
+                .ShowError();
+            
+            
+            _request.CopyFrom(customer);
+        }
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new EditCustomerEndpoint();
+        
+        await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy(Id.HasValue ? "Gravando alterações..." : "Salvando novo cliente...")
+            .ShowError()
+            .ShowSuccess("Cliente salvo com sucesso!");
+
+        NavigationManager.NavigateTo(BackHref);
+    }
+}

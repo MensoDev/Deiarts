@@ -17,7 +17,8 @@ public class EditRawMaterialEndpoint() : CommandEndpoint<EditRawMaterialRequest>
         if (request.Id is null)
         {
             rawMaterial = new RawMaterial(
-                request.Name, 
+                request.Name,
+                request.Brand,
                 request.Description,
                 request.UnitOfMeasure.GetValueOrDefault(), 
                 request.CostPerUnit.GetValueOrDefault());
@@ -30,7 +31,8 @@ public class EditRawMaterialEndpoint() : CommandEndpoint<EditRawMaterialRequest>
             Throw.Http.NotFound.When.Null(rawMaterial, "Matéria-prima não encontrada.");
             
             rawMaterial.Update(
-                request.Name, 
+                request.Name,
+                request.Brand,
                 request.Description,
                 request.UnitOfMeasure.GetValueOrDefault(), 
                 request.CostPerUnit.GetValueOrDefault());

@@ -1,0 +1,52 @@
+@using Deiarts.Application.Products
+@using Deiarts.Application.RawMaterials.Get
+
+@inject IEndpointService EndpointService
+
+<MudStack Row Spacing="4" Justify="Justify.SpaceBetween" Wrap="Wrap.Wrap" AlignItems="AlignItems.Center">
+    <MudStack Row AlignItems="AlignItems.Center">
+        <MudIcon Icon="@Icons.Material.Outlined.Grain" />
+        <MudDivider Vertical />
+        <MudStack Spacing="1">
+            
+            @if (_rawMaterial is null)
+            {
+                <MudSkeleton Animation="Animation.Pulse" Width="300px" />
+                <MudSkeleton Animation="Animation.Wave" />
+            }
+            else
+            {
+                <MudText>
+                    <span>@_rawMaterial.Name</span>
+                    <span>|</span>
+                    <span>@Composition.Quantity @_rawMaterial.UnitOfMeasure.ToEnumOption().CombinedName</span>
+                </MudText>
+                <MudText Typo="Typo.caption" Class="tw|opacity-75">@Composition.Description</MudText>
+            }
+        </MudStack>
+    </MudStack>
+    <MudStack Row Spacing="4">
+        <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" OnClick="EditCompositionAsync"/>
+        <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" OnClick="RemoveCompositionAsync"/>
+    </MudStack>
+</MudStack>
+
+@code 
+{
+    private GetRawMaterialResponse? _rawMaterial;
+    
+    [Parameter, EditorRequired]
+    public required ProductCompositionModel Composition { get; set; }
+    
+    [Parameter, EditorRequired] public required EventCallback<ProductCompositionModel> OnEdit { get; set; }
+    [Parameter, EditorRequired] public required EventCallback<ProductCompositionModel> OnRemove { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _rawMaterial = await EndpointService
+            .RequestAsync(new GetRawMaterialEndpoint(), Composition.RawMaterialId.GetValueOrDefault());
+    }
+    
+    private async Task EditCompositionAsync() => await OnEdit.InvokeAsync(Composition);
+    private async Task RemoveCompositionAsync() => await OnRemove.InvokeAsync(Composition);
+}

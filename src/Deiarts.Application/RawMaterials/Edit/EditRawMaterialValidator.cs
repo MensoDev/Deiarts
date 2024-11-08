@@ -9,6 +9,11 @@ public class EditRawMaterialValidator : AbstractValidator<EditRawMaterialRequest
             .MinimumLength(3)
             .MaximumLength(100);
         
+        RuleFor(request => request.Brand)
+            .NotEmpty()
+            .MinimumLength(3)
+            .MaximumLength(100);
+        
         RuleFor(request => request.Description)
             .NotEmpty()
             .MinimumLength(10)
