@@ -1,0 +1,52 @@
+@page "/quotations/new"
+@using Deiarts.Application.Quotations.Create
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm Model="_request" Validator="_validator" OnValidSubmit="OnValidSubmitAsync">
+    
+    <DeiPage Title="Criar Orçamento" BackHref="@BackHref">
+        <Content>
+            <div class="tw|grid tw|grid-cols-1 tw|gap-4">
+                
+                <DeiTextField @bind-Value="@_request.Title" Label="Titulo"/>
+
+                <DeiTextField
+                    @bind-Value="@_request.Description"
+                    Label="Descrição" Placeholder="Descrição da matéria prima" Lines="4"/>
+
+                <DeiCustomerSelectorField @bind-Value="@_request.CustomerId" Label="Cliente" />
+            </div>
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">
+                Salvar
+            </MudButton>
+        </BottomAction>
+    </DeiPage>
+    
+</DeiEditForm>
+
+@code 
+{
+    private readonly CreateQuotationRequest _request = new();
+    private readonly CreateQuotationValidator _validator = new();
+    
+    private const string BackHref = "/quotations";
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new CreateQuotationEndpoint();
+        
+        var response = await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy("Criando orçamento...")
+            .ShowError()
+            .ShowSuccess("Orçamento criado com sucesso!");
+
+        NavigationManager.NavigateTo(BackHref + "/edit/" + response.Id);
+    }
+}

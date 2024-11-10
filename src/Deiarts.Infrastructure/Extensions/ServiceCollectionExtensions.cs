@@ -1,8 +1,10 @@
 using Deiarts.Application.Customers;
 using Deiarts.Application.Products;
+using Deiarts.Application.Quotations;
 using Deiarts.Application.RawMaterials;
 using Deiarts.Domain.Customers;
 using Deiarts.Domain.Products;
+using Deiarts.Domain.Quotations;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.Queries;
 using Deiarts.Infrastructure.Repositories;
@@ -27,10 +29,12 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IQuotationRepository, QuotationRepository>();
         
         // Queries
         services.AddScoped<IRawMaterialQueries, RawMaterialQueries>();
         services.AddScoped<IProductQueries, ProductQueries>();
         services.AddScoped<ICustomerQueries, CustomerQueries>();
+        services.AddScoped<IQuotationQueries, QuotationQueries>();
     }
 }
