@@ -15,7 +15,7 @@
     OnSubmit="OnSubmit">
     
     <BdkFocusFirstFieldOnInvalidSubmit Force InvalidClass="mud-input-error > input"/>
-    <BdkFocusOnRender Selector="input" Delay="100"/>
+    <BdkFocusOnRender Selector="@FocusOnRenderSelector" Delay="100"/>
     
     @if (Validator.IsNotNull())
     {
@@ -36,5 +36,7 @@
     [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
     [Parameter] public EventCallback<EditContext> OnInvalidSubmit { get; set; }
     [Parameter] public EventCallback<EditContext> OnSubmit { get; set; }
-    
+
+    [Parameter] public string FocusOnRenderSelector { get; set; } = "input";
+
 }

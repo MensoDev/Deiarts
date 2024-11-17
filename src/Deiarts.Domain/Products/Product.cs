@@ -1,5 +1,3 @@
-using Deiarts.Domain.RawMaterials;
-
 namespace Deiarts.Domain.Products;
 
 [HasPrivateEmptyConstructor]

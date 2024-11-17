@@ -1,0 +1,69 @@
+@page "/quotations"
+@using Deiarts.Application.Quotations.List
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+
+<DeiPage Title="Orçamentos" BackHref="/">
+    <Action>
+        <MudTooltip Text="Nova cotação">
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" Href="/quotations/new"/>
+        </MudTooltip>
+    </Action>
+    <Content>
+        <DeiLoader @ref="_loader" Load="LoadAsync" CanRetry PreserveState>
+            @if (context.IsNotEmpty())
+            {
+                <MudTable Items="context" Hover Elevation="0" Dense>
+                    <HeaderContent>
+                        <MudTh>Titulo</MudTh>
+                        <MudTh>Descrição</MudTh>
+                        <MudTh>Cliente</MudTh>
+                        <MudTh>Situação</MudTh>
+                        <MudTh>Vencimento</MudTh>
+                        <MudTh>Valor</MudTh>
+                        <MudTh Class="!tw|text-right"></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="item">
+                        <MudTd DataLabel="Titulo">@item.Title</MudTd>
+                        <MudTd DataLabel="Descrição">
+                            <span class="tw|line-clamp-1">
+                                @item.Description
+                            </span>
+                        </MudTd>
+                        <MudTd DataLabel="Cliente">@item.CustomerName</MudTd>
+                        <MudTd DataLabel="Situação">@item.Status.ToEnumOption().Name</MudTd>
+                        <MudTd DataLabel="Vencimento">@item.ValidUntil</MudTd>
+                        <MudTd DataLabel="Valor">@item.Price.ToCurrency()</MudTd>
+                        <MudTd Class="!tw|text-right">
+                            <MudStack Row Spacing="4">
+                                <MudTooltip Text="@($"Editar: {item.Title}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Edit"
+                                        Color="Color.Primary"
+                                        Href="@($"/quotations/{item.Id}")" />
+                                </MudTooltip>
+                            </MudStack>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Info">
+                    Não há orçamentos cadastrados.
+                </MudAlert>
+            }
+        </DeiLoader>
+    </Content>
+</DeiPage>
+
+@code 
+{
+    private DeiLoader<ListQuotationsResponseItem[]> _loader = default!;
+    private readonly ListQuotationsEndpoint _listEndpoint = new ();
+    
+    private async Task<ListQuotationsResponseItem[]> LoadAsync() 
+        => await EndpointService.RequestAsync(_listEndpoint);
+    
+}

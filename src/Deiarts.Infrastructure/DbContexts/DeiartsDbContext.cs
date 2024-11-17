@@ -1,5 +1,6 @@
 using Deiarts.Domain.Customers;
 using Deiarts.Domain.Products;
+using Deiarts.Domain.Quotations;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.Configurations;
 
@@ -11,6 +12,8 @@ internal class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : Db
     public required DbSet<Product> Products { get; init; }
     public required DbSet<ProductComposition> ProductCompositions { get; init; }
     public required DbSet<RawMaterial> RawMaterials { get; init; }
+    public required DbSet<Quotation> Quotations { get; init; }
+    public required DbSet<QuotationItem> QuotationItems { get; init; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,6 +23,8 @@ internal class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : Db
         modelBuilder.ApplyConfiguration(new ProductCompositionConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new RawMaterialConfiguration());
+        modelBuilder.ApplyConfiguration(new QuotationConfiguration());
+        modelBuilder.ApplyConfiguration(new QuotationItemConfiguration());
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -30,6 +35,8 @@ internal class DeiartsDbContext(DbContextOptions<DeiartsDbContext> options) : Db
         configurationBuilder.Properties<ProductCompositionId>().HaveConversion<ProductCompositionId.EfCoreValueConverter>();
         configurationBuilder.Properties<ProductId>().HaveConversion<ProductId.EfCoreValueConverter>();
         configurationBuilder.Properties<RawMaterialId>().HaveConversion<RawMaterialId.EfCoreValueConverter>();
+        configurationBuilder.Properties<QuotationId>().HaveConversion<QuotationId.EfCoreValueConverter>();
+        configurationBuilder.Properties<QuotationItemId>().HaveConversion<QuotationItemId.EfCoreValueConverter>();
     }
 
     public new Task SaveChangesAsync(CancellationToken cancellationToken = default) => base.SaveChangesAsync(cancellationToken);

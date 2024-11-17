@@ -51,9 +51,7 @@
             }
             else
             {
-                <MudAlert Severity="Severity.Info">
-                    Não há produtos cadastradas.
-                </MudAlert>
+                <DeiNotFoundContent>Não há produtos cadastradas.</DeiNotFoundContent>
             }
         </DeiLoader>
     </Content>
@@ -64,7 +62,7 @@
     private const string BackHref = "/";
     private DeiLoader<ListProductsResponseItem[]> _loader = default!;
 
-    private async Task<ListProductsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListProductsEndpoint());
+    private async Task<ListProductsResponseItem[]> LoadAsync() => await EndpointService.RequestAsync(new ListProductsEndpoint(), new ListProductsRequest());
 
     private async Task RemoveAsync(ProductId id)
     {

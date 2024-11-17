@@ -31,7 +31,7 @@ public class ProblemDetailsExceptionMessageHandler(NavigationManager navigationM
         };
         
         var detail = await httpResponseMessage.Content.ReadAsStringAsync(cancellationToken);
-        detail = string.IsNullOrEmpty(detail) ? "Nehum detalhe adicional." : detail;
+        detail = string.IsNullOrEmpty(detail) ? "Nehum detalhe adicional sobre o erro." : detail;
         
         // Se chamou uma API sem ter autorização, redireciona para a tela de login
         if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)

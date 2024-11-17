@@ -14,7 +14,11 @@
     <MudStack>
         @foreach (var composition in Value)
         {
-            <DeiProductCompositionItem Composition="composition" OnEdit="EditCompositionAsync" OnRemove="RemoveCompositionAsync"/>
+            <DeiProductCompositionItem 
+                Composition="composition" 
+                OnEdit="EditCompositionAsync" 
+                OnRemove="RemoveCompositionAsync"/>
+            
             <MudDivider/>
         }
         
@@ -32,6 +36,8 @@
     [Parameter, EditorRequired] public required List<ProductCompositionModel> Value { get; set; }
     [Parameter] public required EventCallback<List<ProductCompositionModel>> ValueChanged { get; set; }
     [Parameter] public required Expression<Func<List<ProductCompositionModel>>> ValueExpression { get; set; }
+    
+    [CascadingParameter] public required EditContext EditContext { get; set; }
 
     private async Task CreateCompositionAsync()
     {
@@ -49,6 +55,7 @@
         {
             Value.Add(composition);
             await ValueChanged.InvokeAsync(Value);
+            NotifyFieldChanged();
         }
     }
     
@@ -56,6 +63,7 @@
     {
         Value.Remove(composition);
         await ValueChanged.InvokeAsync(Value);
+        NotifyFieldChanged();
     }
     
     private async Task EditCompositionAsync(ProductCompositionModel composition)
@@ -79,6 +87,9 @@
         {
             Value[Value.IndexOf(composition)] = editedComposition;
             await ValueChanged.InvokeAsync(Value);
+            NotifyFieldChanged();
         }
     }
+
+    private void NotifyFieldChanged() => EditContext.NotifyFieldChanged(FieldIdentifier.Create(ValueExpression));
 }
