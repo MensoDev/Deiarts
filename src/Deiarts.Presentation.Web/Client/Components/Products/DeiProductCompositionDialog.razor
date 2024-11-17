@@ -1,6 +1,6 @@
 @using Deiarts.Application.Products
 
-<DeiEditForm Model="_model" Validator="_validator" OnValidSubmit="Submit">
+<DeiEditForm Model="_model" Validator="_validator" OnValidSubmit="Submit" FocusOnRenderSelector="textarea">
     <MudDialog Class="!tw|min-w-[600px]">
         <TitleContent>
             @(Composition.IsNotNull() ? "Editar composição" : "Criar composição")
@@ -9,7 +9,7 @@
             <MudStack Spacing="4">
 
                 <DeiTextField
-                    @bind-Value="@_model.Description" Class="tw|col-span-full"
+                    @bind-Value="@_model.Description" Class="tw|col-span-full" AutoFocus
                     Label="Descrição" Placeholder="Descrição da matéria prima" Lines="4"/>
 
                 <MudDivider/>

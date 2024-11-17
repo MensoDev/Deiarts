@@ -1,0 +1,94 @@
+@page "/quotations/{Id:guid}"
+@using Deiarts.Application.Quotations.Get
+
+@inject IEndpointService EndpointService
+
+<DeiPage Title="Orçamento" BackHref="@BackHref">
+    <Action>
+
+    </Action>
+    <Content>
+        <DeiLoader Load="LoadAsync" CanRetry PreserveState Context="quotation">
+            <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 md:tw|grid-cols-3 tw|gap-4">
+
+                <DeiDataDisplay Title="Titulo">
+                    @quotation.Title
+                </DeiDataDisplay>
+
+                <DeiDataDisplay Title="Descrição" Class="tw|col-span-full">
+                    @quotation.Description
+                </DeiDataDisplay>
+
+                <MudDivider Class="tw|col-span-full"/>
+
+                <MudText Typo="Typo.subtitle1" Class="tw|col-span-full">Cliente</MudText>
+
+                <DeiDataDisplay Title="Nome">
+                    @quotation.CustomerName
+                </DeiDataDisplay>
+
+                <DeiDataDisplay Title="E-mai">
+                    @quotation.CustomerEmail
+                </DeiDataDisplay>
+
+                <DeiDataDisplay Title="Celular">
+                    @quotation.CustomerPhone
+                </DeiDataDisplay>
+
+                <MudDivider Class="tw|col-span-full"/>
+
+                <MudStack Class="tw|col-span-full" Row Justify="Justify.SpaceBetween" Spacing="4" Wrap="Wrap.Wrap" AlignItems="AlignItems.Center">
+                    <MudText Typo="Typo.subtitle1">Composição</MudText>
+                    <MudButton Color="Color.Primary" Variant="Variant.Outlined" Href="@($"/quotations/{Id}/items/new")">
+                        Adicionar Produto(s)
+                    </MudButton>
+                </MudStack>
+
+
+                <MudTable Items="quotation.Items" Hover Elevation="0" Dense Class="tw|col-span-full">
+                    <HeaderContent>
+                        <MudTh>Produto</MudTh>
+                        <MudTh>Quantidade</MudTh>
+                        <MudTh>Valor Unitário</MudTh>
+                        <MudTh>Valor Total</MudTh>
+                        <MudTh Class="!tw|text-right"></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="item">
+                        <MudTd DataLabel="Produto">@item.ProductName</MudTd>
+                        <MudTd DataLabel="Quantidade">@item.Quantity</MudTd>
+                        <MudTd DataLabel="Valor Unitário">@item.PricePerUnit.ToCurrency()</MudTd>
+                        <MudTd DataLabel="Valor Total">@item.Price.ToCurrency()</MudTd>
+                        <MudTd Class="!tw|text-right">
+                            <MudStack Row Spacing="4">
+                                <MudTooltip Text="@($"Editar: {item.ProductName}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Edit"
+                                        Color="Color.Primary"
+                                        Href="@($"/quotations/{Id}/items/{item.Id}")"/>
+                                </MudTooltip>
+                                <MudTooltip Text="@($"Remover: {item.ProductName}")">
+                                    <MudIconButton
+                                        Icon="@Icons.Material.Outlined.Delete"
+                                        Color="Color.Error" />
+                                </MudTooltip>
+                            </MudStack>
+                        </MudTd>
+                    </RowTemplate>
+                    <NoRecordsContent>
+                        Nenhum item cadastrado, por favor adicione pelo menos um!
+                    </NoRecordsContent>
+                </MudTable>
+            </div>
+        </DeiLoader>
+    </Content>
+</DeiPage>
+
+@code
+{
+    private const string BackHref = "/quotations";
+    private readonly GetQuotationEndpoint _getEndpoint = new();
+
+    [Parameter] public required Guid Id { get; set; }
+
+    private async Task<GetQuotationResponse> LoadAsync() => await EndpointService.RequestAsync(_getEndpoint, new QuotationId(Id));
+}

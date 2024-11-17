@@ -1,3 +1,4 @@
+using Deiarts.Application;
 using Deiarts.Application.Customers;
 using Deiarts.Application.Products;
 using Deiarts.Application.Quotations;
@@ -8,6 +9,7 @@ using Deiarts.Domain.Quotations;
 using Deiarts.Domain.RawMaterials;
 using Deiarts.Infrastructure.Queries;
 using Deiarts.Infrastructure.Repositories;
+using Deiarts.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,5 +38,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IProductQueries, ProductQueries>();
         services.AddScoped<ICustomerQueries, CustomerQueries>();
         services.AddScoped<IQuotationQueries, QuotationQueries>();
+        
+        // Services
+        services.AddScoped<IPricingService, PricingService>();
     }
 }

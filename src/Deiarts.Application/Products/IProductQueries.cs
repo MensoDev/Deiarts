@@ -6,7 +6,7 @@ namespace Deiarts.Application.Products;
 
 internal interface IProductQueries
 {
-    Task<ListProductsResponseItem[]> ListAsync();
+    Task<ListProductsResponseItem[]> ListAsync(string? term);
 
     Task<GetProductResponse?> GetAsync(ProductId productId);
 }

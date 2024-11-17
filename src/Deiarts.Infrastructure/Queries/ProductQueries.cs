@@ -6,10 +6,17 @@ namespace Deiarts.Infrastructure.Queries;
 
 internal class ProductQueries(DeiartsDbContext db) : IProductQueries
 {
-    public Task<ListProductsResponseItem[]> ListAsync()
+    public async Task<ListProductsResponseItem[]> ListAsync(string? term)
     {
-        return db.Products
-            .AsNoTracking()
+        var query = db.Products
+            .AsNoTracking();
+
+        if (term.IsNotNullOrWhiteSpace())
+        {
+            query = query.Where(product => product.Name.Contains(term));
+        }
+
+        return await query
             .Select(p => new ListProductsResponseItem
             {
                 Id = p.Id,

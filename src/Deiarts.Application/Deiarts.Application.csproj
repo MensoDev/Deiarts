@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsTrimmable>true</IsTrimmable>
@@ -15,7 +15,7 @@
     <ItemGroup>
         <!-- (!) Solução para compartilhamento de projetos entre Server e Client. Pode ser pensanda solução mais adequada com o lançamento do TFM Browser, provavelmente no .NET 10 -->
         <!-- A adição explícita da lib de Pipelines evitar warnings -->
-        <PackageReference Include="System.IO.Pipelines" Version="8.0.0"/>
+        <PackageReference Include="System.IO.Pipelines" Version="9.0.0"/>
         <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions">
             <SpecificVersion>false</SpecificVersion>
             <HintPath>..\..\.libs\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="RawMaterials\Options\" />
+        <Folder Include="RawMaterials\Options\"/>
     </ItemGroup>
 
 </Project>

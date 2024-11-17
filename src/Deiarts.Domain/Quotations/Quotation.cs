@@ -64,12 +64,16 @@ internal partial class Quotation : Entity<QuotationId>, IAggregateRoot
 
     public void AddItem(ProductId productId, int quantity, decimal price, string description)
     {
+        Throw.When.NotEqual(Status, QuotationStatus.Draft, "Este Orçamento não permite remoção de itens.");
+        
         _items.Add(new QuotationItem(Id, productId, quantity, price, description));
         Price = _items.Sum(item => item.Price);
     }
     
     public void UpdateItem(QuotationItemId itemId, int quantity, decimal price, string description)
     {
+        Throw.When.NotEqual(Status, QuotationStatus.Draft, "Este Orçamento não permite remoção de itens.");
+        
         var quotationItem = _items.FirstOrDefault(item => item.Id == itemId);
         Throw.When.Null(quotationItem, "Item não encontrado.");
         
@@ -81,6 +85,8 @@ internal partial class Quotation : Entity<QuotationId>, IAggregateRoot
     
     public void RemoveItem(QuotationItemId itemId)
     {
+        Throw.When.NotEqual(Status, QuotationStatus.Draft, "Este Orçamento não permite remoção de itens.");
+        
         var quotationItem = _items.FirstOrDefault(item => item.Id == itemId);
         Throw.When.Null(quotationItem, "Item não encontrado.");
         

@@ -48,9 +48,7 @@
             }
             else
             {
-                <MudAlert Severity="Severity.Info">
-                    Não há clientes cadastrados
-                </MudAlert>
+                <DeiNotFoundContent>Não há clientes cadastrados</DeiNotFoundContent>
             }
         </DeiLoader>
     </Content>
@@ -69,7 +67,7 @@
         if (!confirm) return;
 
         var endpoint = new RemoveCustomerEndpoint();
-        
+
         await EndpointService.RequestAsync(endpoint, id)
             .Use(UiUtils)
             .ShowBusy("Removendo cliente...")

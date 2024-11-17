@@ -1,0 +1,17 @@
+@inherits DeiComponentBase
+
+<MudStack Row="Row" Spacing="2" Class="@Class" Style="@Style" @attributes="AdditionalAttributes">
+    <span class="tw|text-xs tw|font-bold">@Title.ToUpper()</span>
+    <span>
+        @ChildContent
+    </span>
+</MudStack>
+
+@code 
+{
+    [Parameter, EditorRequired] public required string Title { get; set; }
+    
+    [Parameter] public bool Row { get; set; }
+    
+    [Parameter] public required RenderFragment ChildContent { get; set; }
+}

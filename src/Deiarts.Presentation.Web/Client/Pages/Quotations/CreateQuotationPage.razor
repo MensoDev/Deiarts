@@ -1,5 +1,6 @@
 @page "/quotations/new"
 @using Deiarts.Application.Quotations.Create
+@using Deiarts.Presentation.Web.Client.Components
 
 @inject IEndpointService EndpointService
 @inject IUiUtils UiUtils
@@ -47,6 +48,6 @@
             .ShowError()
             .ShowSuccess("Orçamento criado com sucesso!");
 
-        NavigationManager.NavigateTo(BackHref + "/edit/" + response.Id);
+        NavigationManager.NavigateTo(BackHref + "/" + response.Id);
     }
 }

@@ -4,7 +4,7 @@ using Deiarts.Common.Client.Components.Forms;
 using Deiarts.Common.Client.Services.Endpoints;
 using Microsoft.AspNetCore.Components;
 
-namespace Deiarts.Presentation.Web.Client.Pages.Quotations;
+namespace Deiarts.Presentation.Web.Client.Components;
 
 public class DeiCustomerSelectorField : DeiSelectorAbstractField<CustomerId>
 {

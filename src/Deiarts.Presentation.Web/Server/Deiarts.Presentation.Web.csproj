@@ -1,28 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Deiarts.Common.Server\Deiarts.Common.Server.csproj" />
-      <ProjectReference Include="..\..\Deiarts.Infrastructure\Deiarts.Infrastructure.csproj" />
-      <ProjectReference Include="..\Client\Deiarts.Presentation.Web.Client.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
+        <ProjectReference Include="..\..\Deiarts.Common.Server\Deiarts.Common.Server.csproj"/>
+        <ProjectReference Include="..\..\Deiarts.Infrastructure\Deiarts.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Client\Deiarts.Presentation.Web.Client.csproj"/>
     </ItemGroup>
 
 </Project>

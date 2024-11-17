@@ -2,10 +2,9 @@ using Deiarts.Application.RawMaterials.Get;
 using Deiarts.Application.RawMaterials.List;
 using Deiarts.Common.Client.Components.Forms;
 using Deiarts.Common.Client.Services.Endpoints;
-
 using Microsoft.AspNetCore.Components;
 
-namespace Deiarts.Presentation.Web.Client.Pages.Products;
+namespace Deiarts.Presentation.Web.Client.Components;
 
 public class DeiRawMaterialSelectorField : DeiSelectorAbstractField<RawMaterialId>
 {

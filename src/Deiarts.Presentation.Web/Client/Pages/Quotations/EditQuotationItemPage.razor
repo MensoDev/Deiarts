@@ -1,0 +1,84 @@
+@page "/quotations/{QuotationId:guid}/items/new"
+@page "/quotations/{QuotationId:guid}/items/{QuotationItemId:guid}/edit"
+
+@using Deiarts.Application.Quotations.EditeItem
+@using Deiarts.Application.Quotations.GetItem
+
+@inject IEndpointService EndpointService
+@inject IUiUtils UiUtils
+@inject NavigationManager NavigationManager
+
+<DeiEditForm Model="_request" Validator="_validator" OnValidSubmit="OnValidSubmitAsync">
+    
+    <DeiPage Title="@Title" BackHref="@BackHref">
+        <Content>
+            
+            <div class="tw|grid tw|grid-cols-1 sm:tw|grid-cols-2 tw|gap-4">
+
+                <DeiTextField
+                    @bind-Value="@_request.Description" Lines="4"
+                    Label="Descrição" Placeholder="Descrição"  />
+                
+                <DeiProductSelectorField
+                    @bind-Value="@_request.ProductId"
+                    Label="Produto" Placeholder="Selecione um produto" />
+                
+                <DeiNumericField
+                    @bind-Value="@_request.Quantity"
+                    Label="Quantidade" Placeholder="Ex: 10" />
+                
+            </div>
+            
+        </Content>
+        <BottomAction>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">
+                Salvar
+            </MudButton>
+        </BottomAction>
+    </DeiPage>
+    
+</DeiEditForm>
+
+@code 
+{
+    private readonly EditQuotationItemRequest _request = new();
+    private readonly EditQuotationItemValidator _validator = new();
+    
+    private string Title => QuotationItemId.HasValue ? "Editar Item de Orçamento" : "Novo Item de Orçamento";
+    private string BackHref => $"/quotations/{QuotationId}";
+    
+    [Parameter] public required Guid QuotationId { get; init; }
+    [Parameter] public required Guid? QuotationItemId { get; init; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _request.Id = new QuotationId(QuotationId);
+        
+        if(!QuotationItemId.HasValue) return;
+
+        var endpoint = new GetQuotationItemEndpoint();
+        var quotationItemId = new QuotationItemId(QuotationItemId.Value);
+
+        var response = await EndpointService
+            .RequestAsync(endpoint, quotationItemId)
+            .Use(UiUtils)
+            .ShowError();
+
+        _request.CopyFrom(response);
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        var endpoint = new EditQuotationItemEndpoint();
+
+        await EndpointService
+            .RequestAsync(endpoint, _request)
+            .Use(UiUtils)
+            .ShowBusy("Salvando item de orçamento...")
+            .ShowError()
+            .ShowSuccess("Item de orçamento salvo com sucesso!");
+        
+        NavigationManager.NavigateTo(BackHref);
+    }
+
+}

@@ -6,7 +6,11 @@ using Deiarts.Application.Products.Edit;
 using Deiarts.Application.Products.Get;
 using Deiarts.Application.Products.List;
 using Deiarts.Application.Quotations.Create;
+using Deiarts.Application.Quotations.EditeItem;
+using Deiarts.Application.Quotations.Get;
+using Deiarts.Application.Quotations.GetItem;
 using Deiarts.Application.Quotations.List;
+using Deiarts.Application.Quotations.RemoveItem;
 using Deiarts.Application.RawMaterials.Edit;
 using Deiarts.Application.RawMaterials.Get;
 using Deiarts.Application.RawMaterials.List;
@@ -23,6 +27,7 @@ namespace Deiarts.Application;
 
 [JsonSerializable(typeof(EditProductRequest))]
 [JsonSerializable(typeof(GetProductResponse))]
+[JsonSerializable(typeof(ListProductsRequest))]
 [JsonSerializable(typeof(ListProductsResponseItem[]))]
 [JsonSerializable(typeof(ValueRequest<ProductId>))]
 
@@ -35,4 +40,10 @@ namespace Deiarts.Application;
 [JsonSerializable(typeof(CreateQuotationRequest))]
 [JsonSerializable(typeof(CreateQuotationResponse))]
 [JsonSerializable(typeof(ListQuotationsResponseItem[]))]
+[JsonSerializable(typeof(GetQuotationResponse))]
+[JsonSerializable(typeof(EditQuotationItemRequest))]
+[JsonSerializable(typeof(RemoveQuotationItemRequest))]
+[JsonSerializable(typeof(GetQuotationItemResponse))]
+[JsonSerializable(typeof(ValueRequest<QuotationId>))]
+[JsonSerializable(typeof(ValueRequest<QuotationItemId>))]
 public partial class DeiartsSerializationContext : JsonSerializerContext;

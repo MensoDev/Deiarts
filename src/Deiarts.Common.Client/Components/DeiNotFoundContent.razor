@@ -1,0 +1,8 @@
+<MudAlert Severity="Severity.Warning" Icon="@Icons.Material.Filled.WebAssetOff" ContentAlignment="HorizontalAlignment.Center">
+    @ChildContent
+</MudAlert>
+
+@code 
+{
+    [Parameter, EditorRequired] public required RenderFragment ChildContent { get; set; }
+}

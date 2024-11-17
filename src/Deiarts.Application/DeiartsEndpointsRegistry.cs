@@ -6,7 +6,11 @@ using Deiarts.Application.Products.Edit;
 using Deiarts.Application.Products.Get;
 using Deiarts.Application.Products.List;
 using Deiarts.Application.Quotations.Create;
+using Deiarts.Application.Quotations.EditeItem;
+using Deiarts.Application.Quotations.Get;
+using Deiarts.Application.Quotations.GetItem;
 using Deiarts.Application.Quotations.List;
+using Deiarts.Application.Quotations.RemoveItem;
 using Deiarts.Application.RawMaterials.Edit;
 using Deiarts.Application.RawMaterials.Get;
 using Deiarts.Application.RawMaterials.List;
@@ -35,6 +39,10 @@ public static class DeiartsEndpointsRegistry
             
             .Register(new CreateQuotationEndpoint(), CreateQuotationEndpoint.ExecuteAsync)
             .Register(new ListQuotationsEndpoint(), ListQuotationsEndpoint.ExecuteAsync)
+            .Register(new GetQuotationEndpoint(), GetQuotationEndpoint.ExecuteAsync)
+            .Register(new EditQuotationItemEndpoint(), EditQuotationItemEndpoint.ExecuteAsync)
+            .Register(new RemoveQuotationItemEndpoint(), RemoveQuotationItemEndpoint.ExecuteAsync)
+            .Register(new GetQuotationItemEndpoint(), GetQuotationItemEndpoint.ExecuteAsync)
             ;
     }
 }
